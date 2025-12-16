@@ -1,1 +1,30 @@
 
+<!-- ============================= -->
+<!-- 📝 register.html -->
+<!-- ============================= -->
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<title>Criar Conta</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<h2>Criar Conta</h2>
+<form onsubmit="registerUser(event)">
+<input type="text" placeholder="Nome" required />
+<input type="email" placeholder="Email" required />
+<select required>
+<option value="">Selecione</option>
+<option>Barbeiro</option>
+<option>Esteticista</option>
+</select>
+<button class="btn">Cadastrar</button>
+</form>
+
+
+<script src="js/main.js"></script>
+</body>
+</html>
