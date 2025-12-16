@@ -1,0 +1,33 @@
+<!-- ============================= -->
+<!-- 📅 agendar.html -->
+<!-- ============================= -->
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<title>Agendar Horário</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<h2>Agendar Horário</h2>
+
+
+<form onsubmit="createAppointment(event)">
+<select required>
+<option>Corte</option>
+<option>Barba</option>
+<option>Limpeza de Pele</option>
+</select>
+<input type="date" required />
+<input type="time" required />
+<input type="text" placeholder="Seu nome" required />
+<input type="tel" placeholder="Telefone" required />
+<button class="btn">Confirmar</button>
+</form>
+
+
+<script src="js/main.js"></script>
+</body>
+</html>
