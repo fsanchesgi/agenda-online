@@ -1,44 +1,30 @@
-const SUPABASE_URL = "https://uqwbduinwugaqexsvkxc.supabase.co";
-const SUPABASE_ANON_KEY =
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVxd2JkdWlud3VnYXFleHN2a3hjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU3MTk5MjMsImV4cCI6MjA4MTI5NTkyM30._GzXlkNAvqbevYjmi-crhvSKGQQfX3yjzTWT5PTvIxE";
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard | Agenda Online</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header>
+  <div class="logo">Agenda<span>Online</span></div>
+  <nav>
+    <a href="/index.html">Agendar</a>
+    <a href="/dashboard.html">Dashboard</a>
+    <a href="/planos.html">Planos</a>
+  </nav>
+</header>
 
-const supabaseClient = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY
-);
+<main class="container">
+  <h1>Dashboard</h1>
+  <p>Bem-vindo ao seu painel de controle.</p>
+  <!-- Aqui você pode listar agendamentos, estatísticas, etc -->
+</main>
 
-async function carregarAgenda() {
-  const { data: { user } } = await supabaseClient.auth.getUser();
-  if (!user) return location.href = "/login.html";
+<footer>
+  <p>© Agenda Online - Todos os direitos reservados</p>
+</footer>
 
-  const { data: profissional } = await supabaseClient
-    .from("profissionais")
-    .select("id")
-    .eq("user_id", user.id)
-    .single();
-
-  const { data: agendamentos } = await supabaseClient
-    .from("agendamentos")
-    .select("data_hora, cliente_nome")
-    .eq("profissional_id", profissional.id)
-    .order("data_hora");
-
-  const ul = document.getElementById("agenda");
-  ul.innerHTML = "";
-
-  agendamentos.forEach(a => {
-    ul.innerHTML += `
-      <li>
-        <strong>${new Date(a.data_hora).toLocaleString()}</strong><br>
-        ${a.cliente_nome}
-      </li>
-    `;
-  });
-}
-
-async function logout() {
-  await supabaseClient.auth.signOut();
-  location.href = "/login.html";
-}
-
-carregarAgenda();
+<script src="/app.js"></script>
+</body>
+</html>
