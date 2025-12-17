@@ -11,72 +11,66 @@
   <!-- CSS -->
   <link rel="stylesheet" href="style.css" />
 
-  <!-- Supabase -->
+  <!-- Supabase SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
+
 <body class="login-page">
 
   <!-- HEADER -->
   <header class="login-header">
-    <a href="index.html" class="logo-link">
-      <img src="images/timelypro-logo.png" alt="TimelyPro" class="logo logo-login" />
+    <a href="index.html">
+      <img src="images/timelypro-logo.png" alt="TimelyPro" class="logo logo-login">
     </a>
   </header>
 
-  <!-- LOGIN CONTAINER -->
-  <main class="login-container">
-    <h1>Acessar sua conta</h1>
-    <p class="subtitle">
-      Gerencie seus agendamentos de forma profissional
-    </p>
+  <!-- LOGIN CARD -->
+  <main class="login-wrapper">
+    <section class="login-card">
+      <h1>Entrar</h1>
+      <p class="login-subtitle">
+        Acesse seu painel TimelyPro
+      </p>
 
-    <form id="login-form">
-      <input
-        type="email"
-        id="email"
-        placeholder="E-mail"
-        required
-      />
+      <form id="login-form">
+        <input
+          type="email"
+          id="email"
+          placeholder="Seu e-mail"
+          required
+        />
 
-      <input
-        type="password"
-        id="password"
-        placeholder="Senha"
-        required
-      />
+        <input
+          type="password"
+          id="password"
+          placeholder="Sua senha"
+          required
+        />
 
-      <button type="submit" class="btn-primary">
-        Entrar
-      </button>
-    </form>
+        <button type="submit" class="btn-primary">
+          Entrar
+        </button>
+      </form>
 
-    <div class="login-actions">
+      <p id="login-error" class="error-message"></p>
+
       <a href="index.html" class="back-link">
         ← Voltar para o site
       </a>
-    </div>
-
-    <p id="login-error" class="error-message"></p>
+    </section>
   </main>
 
   <!-- FOOTER -->
   <footer class="login-footer">
-    <p>© 2025 TimelyPro — Todos os direitos reservados</p>
+    © 2025 TimelyPro
   </footer>
 
-  <!-- APP JS -->
+  <!-- APP JS (onde o supabase já existe) -->
   <script src="app.js"></script>
 
   <!-- LOGIN SCRIPT -->
   <script>
-    const SUPABASE_URL = "https://uqwbduinwugaqexsvkxc.supabase.co";
-    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVxd2JkdWlud3VnYXFleHN2a3hjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU3MTk5MjMsImV4cCI6MjA4MTI5NTkyM30._GzXlkNAvqbevYjmi-crhvSKGQQfX3yjzTWT5PTvIxE";
-
-    const supabase = window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_ANON_KEY
-    );
-
+    // ⚠️ Usa o supabase já criado no app.js
     const form = document.getElementById("login-form");
     const errorBox = document.getElementById("login-error");
 
@@ -84,10 +78,10 @@
       e.preventDefault();
       errorBox.textContent = "";
 
-      const email = document.getElementById("email").value;
+      const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value;
 
-      const { data, error } = await supabase.auth.signInWithPassword({
+      const { error } = await supabase.auth.signInWithPassword({
         email,
         password
       });
@@ -97,8 +91,8 @@
         return;
       }
 
-      // Login OK → Dashboard
-      window.location.href = "dashboard.html";
+      // ✅ REDIRECIONAMENTO GARANTIDO
+      window.location.replace("dashboard.html");
     });
   </script>
 
