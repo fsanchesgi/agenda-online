@@ -1,6 +1,5 @@
-// 🔐 SUPABASE (DECLARADO UMA ÚNICA VEZ)
-const SUPABASE_URL = "SUA_PROJECT_URL";
-const SUPABASE_ANON_KEY = "SUA_ANON_KEY";
+const SUPABASE_URL = https://uqwbduinwugaqexsvkxc.supabase.co;
+const SUPABASE_ANON_KEY = https://uqwbduinwugaqexsvkxc.supabase.co;
 
 const supabase = window.supabase.createClient(
   SUPABASE_URL,
