@@ -17,7 +17,12 @@
 
 <main class="container">
   <h1>Agende seu horário</h1>
-  <p class="subtitle">Escolha o serviço, data e horário disponíveis</p>
+  <p class="subtitle">Preencha os dados abaixo para confirmar</p>
+
+  <div class="form-group">
+    <label>Seu nome</label>
+    <input type="text" id="cliente_nome" placeholder="Ex: João Silva">
+  </div>
 
   <div class="form-group">
     <label>Profissional</label>
@@ -39,7 +44,10 @@
     <select id="horario"></select>
   </div>
 
-  <button onclick="agendar()">Confirmar Agendamento</button>
+  <!-- 🔴 FIX AQUI -->
+  <button type="button" onclick="agendar()">
+    Confirmar Agendamento
+  </button>
 </main>
 
 <script src="/app.js"></script>
