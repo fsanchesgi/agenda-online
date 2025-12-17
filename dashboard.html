@@ -1,41 +1,33 @@
 <section>
-  <h2>Meus Estabelecimentos</h2>
+  <h2>Profissionais</h2>
 
-  <div id="lista-estabelecimentos"></div>
+  <div id="lista-profissionais"></div>
 
-  <h3>Novo Estabelecimento</h3>
-  <input id="nome" placeholder="Nome" />
-  <input id="cidade" placeholder="Cidade" />
-  <input id="estado" placeholder="Estado (SP)" />
-  <textarea id="descricao" placeholder="Descrição"></textarea>
-
-  <button onclick="criarEstabelecimento()">Criar</button>
+  <h3>Novo Profissional</h3>
+  <input id="nome-prof" placeholder="Nome" />
+  <input id="especialidade" placeholder="Especialidade" />
+  <button onclick="criarProfissional(ESTABELECIMENTO_ID)">Adicionar</button>
 </section>
 
-<script src="estabelecimento.js"></script>
+<script src="profissionais.js"></script>
 
 <script>
-async function carregarEstabelecimentos() {
-  const session = await supabaseClient.auth.getSession();
-  const userId = session.data.session.user.id;
-
+async function carregarProfissionais(estabelecimentoId) {
   const { data } = await supabaseClient
-    .from("estabelecimentos")
+    .from("profissionais")
     .select("*")
-    .eq("owner_id", userId);
+    .eq("estabelecimento_id", estabelecimentoId);
 
-  const container = document.getElementById("lista-estabelecimentos");
-  container.innerHTML = "";
+  const div = document.getElementById("lista-profissionais");
+  div.innerHTML = "";
 
-  data.forEach(e => {
-    container.innerHTML += `
+  data.forEach(p => {
+    div.innerHTML += `
       <div class="card">
-        <strong>${e.nome}</strong><br/>
-        ${e.cidade} - ${e.estado}
+        <strong>${p.nome}</strong><br/>
+        ${p.especialidade || ""}
       </div>
     `;
   });
 }
-
-carregarEstabelecimentos();
 </script>
