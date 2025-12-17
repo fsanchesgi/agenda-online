@@ -65,12 +65,11 @@
     © 2025 TimelyPro
   </footer>
 
-  <!-- APP JS (onde o supabase já existe) -->
+  <!-- APP JS (onde o supabase é criado) -->
   <script src="app.js"></script>
 
   <!-- LOGIN SCRIPT -->
   <script>
-    // ⚠️ Usa o supabase já criado no app.js
     const form = document.getElementById("login-form");
     const errorBox = document.getElementById("login-error");
 
@@ -81,6 +80,7 @@
       const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value;
 
+      // 1️⃣ Faz login
       const { error } = await supabase.auth.signInWithPassword({
         email,
         password
@@ -91,8 +91,16 @@
         return;
       }
 
-      // ✅ REDIRECIONAMENTO GARANTIDO
-      window.location.replace("dashboard.html");
+      // 2️⃣ Aguarda sessão estar disponível (CORREÇÃO CRÍTICA)
+      const { data: sessionData } = await supabase.auth.getSession();
+
+      if (sessionData && sessionData.session) {
+        // 3️⃣ Agora sim redireciona
+        window.location.href = "dashboard.html";
+      } else {
+        errorBox.textContent =
+          "Login realizado, mas a sessão não foi criada. Tente novamente.";
+      }
     });
   </script>
 
