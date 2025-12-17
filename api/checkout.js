@@ -1,22 +1,23 @@
 import fetch from "node-fetch";
 
-export default async function handler(req, res) {
-  if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
-
+export default async function handler(req,res){
+  if(req.method!=="POST"){ res.status(405).end(); return; }
   const { planoNome, preco, perfilId } = req.body;
-  const MP_ACCESS_TOKEN = process.env.MP_ACCESS_TOKEN;
-  if (!MP_ACCESS_TOKEN) return res.status(500).json({ error: "Token não configurado" });
-
-  const response = await fetch("https://api.mercadopago.com/checkout/preferences", {
-    method: "POST",
-    headers: { Authorization: `Bearer ${MP_ACCESS_TOKEN}`, "Content-Type": "application/json" },
-    body: JSON.stringify({
-      items: [{ title: `Plano ${planoNome}`, quantity: 1, unit_price: preco, currency_id: "BRL" }],
-      back_urls: { success: `${req.headers.origin}/planos.html?success=true`, failure: `${req.headers.origin}/planos.html?success=false` },
-      auto_return: "approved"
-    })
-  });
-
-  const data = await response.json();
-  res.status(200).json(data);
+  const token="SEU_ACCESS_TOKEN_MERCADO_PAGO";
+  try{
+    const r=await fetch("https://api.mercadopago.com/checkout/preferences",{
+      method:"POST",
+      headers:{
+        "Authorization":`Bearer ${token}`,
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({
+        items:[{title:planoNome,quantity:1,unit_price:preco}],
+        back_urls:{success:"/planos.html",failure:"/planos.html",pending:"/planos.html"},
+        auto_return:"approved"
+      })
+    });
+    const data=await r.json();
+    res.status(200).json(data);
+  }catch(e){ res.status(500).json({error:e.message}); }
 }
