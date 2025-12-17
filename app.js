@@ -7,21 +7,23 @@ const supabaseClient = window.supabase.createClient(
   SUPABASE_ANON_KEY
 );
 
+const clienteNomeInput = document.getElementById("cliente_nome");
 const profissionalSelect = document.getElementById("profissional");
 const servicoSelect = document.getElementById("servico");
 const dataInput = document.getElementById("data");
 const horarioSelect = document.getElementById("horario");
 
 /* ===========================
-   CARREGAR PROFISSIONAIS
+   PROFISSIONAIS
 =========================== */
 async function carregarProfissionais() {
   const { data, error } = await supabaseClient
     .from("profissionais")
-    .select("id, nome");
+    .select("id, nome")
+    .eq("ativo", true);
 
   if (error) {
-    console.error("Erro profissionais:", error);
+    console.error(error);
     return;
   }
 
@@ -35,7 +37,7 @@ async function carregarProfissionais() {
 }
 
 /* ===========================
-   CARREGAR SERVIÇOS
+   SERVIÇOS
 =========================== */
 async function carregarServicos() {
   const { data, error } = await supabaseClient
@@ -43,7 +45,7 @@ async function carregarServicos() {
     .select("id, nome, duracao_minutos");
 
   if (error) {
-    console.error("Erro serviços:", error);
+    console.error(error);
     return;
   }
 
@@ -59,7 +61,7 @@ async function carregarServicos() {
 }
 
 /* ===========================
-   CARREGAR HORÁRIOS (FIX)
+   HORÁRIOS
 =========================== */
 async function carregarHorarios() {
   horarioSelect.innerHTML =
@@ -70,17 +72,10 @@ async function carregarHorarios() {
   const servicoOption = servicoSelect.selectedOptions[0];
 
   if (!profissionalId || !dataSelecionada || !servicoOption) {
-    console.log("Aguardando seleção completa");
     return;
   }
 
   const duracao = parseInt(servicoOption.dataset.duracao);
-
-  console.log("Chamando RPC com:", {
-    profissionalId,
-    dataSelecionada,
-    duracao
-  });
 
   const { data, error } = await supabaseClient.rpc(
     "horarios_disponiveis",
@@ -91,15 +86,8 @@ async function carregarHorarios() {
     }
   );
 
-  if (error) {
-    console.error("Erro RPC horários:", error);
-    return;
-  }
-
-  console.log("Horários retornados:", data);
-
-  if (!data || data.length === 0) {
-    console.warn("Nenhum horário disponível");
+  if (error || !data) {
+    console.error(error);
     return;
   }
 
@@ -115,6 +103,13 @@ async function carregarHorarios() {
    AGENDAR
 =========================== */
 async function agendar() {
+  const clienteNome = clienteNomeInput.value.trim();
+
+  if (!clienteNome) {
+    alert("Informe seu nome");
+    return;
+  }
+
   const dataHora =
     `${dataInput.value} ${horarioSelect.value}`;
 
@@ -123,7 +118,7 @@ async function agendar() {
     .insert([{
       profissional_id: profissionalSelect.value,
       servico_id: servicoSelect.value,
-      cliente_nome: "Cliente Online",
+      cliente_nome: clienteNome,
       data_hora: dataHora,
       status: "agendado"
     }]);
@@ -132,6 +127,7 @@ async function agendar() {
     alert(error.message);
   } else {
     alert("Agendamento confirmado!");
+    clienteNomeInput.value = "";
     carregarHorarios();
   }
 }
