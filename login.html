@@ -1,26 +1,95 @@
-<script>
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    errorBox.textContent = "";
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login | TimelyPro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    const emailValue = document.getElementById("email").value.trim();
-    const passwordValue = document.getElementById("password").value;
+  <link rel="icon" type="image/png" href="images/timelypro-favicon.png" />
+  <link rel="stylesheet" href="style.css" />
 
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: emailValue,
-      password: passwordValue
+  <!-- Supabase SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body class="login-page">
+
+  <header class="login-header">
+    <a href="index.html">
+      <img src="images/timelypro-logo.png" class="logo logo-login" />
+    </a>
+  </header>
+
+  <main class="login-wrapper">
+    <section class="login-card">
+      <h1>Entrar</h1>
+      <p class="login-subtitle">Acesse seu painel TimelyPro</p>
+
+      <form id="login-form">
+        <input type="email" id="email" placeholder="Seu e-mail" required />
+        <input type="password" id="password" placeholder="Sua senha" required />
+
+        <button type="submit" class="btn-primary">Entrar</button>
+      </form>
+
+      <p id="login-error" class="error-message"></p>
+
+      <a href="index.html" class="back-link">← Voltar para o site</a>
+    </section>
+  </main>
+
+  <footer class="login-footer">© 2025 TimelyPro</footer>
+
+  <script>
+    // ================================
+    // SUPABASE CLIENT (ÚNICO)
+    // ================================
+    const SUPABASE_URL = "https://uqwbduinwugaqexsvkxc.supabase.co";
+    const SUPABASE_ANON_KEY =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVxd2JkdWlud3VnYXFleHN2a3hjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU3MTk5MjMsImV4cCI6MjA4MTI5NTkyM30._GzXlkNAvqbevYjmi-crhvSKGQQfX3yjzTWT5PTvIxE";
+
+    const supabaseClient = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_ANON_KEY
+    );
+
+    // ================================
+    // LOGIN FLOW
+    // ================================
+    const form = document.getElementById("login-form");
+    const errorBox = document.getElementById("login-error");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      errorBox.textContent = "";
+
+      const emailValue = document.getElementById("email").value.trim();
+      const passwordValue = document.getElementById("password").value;
+
+      const { data, error } =
+        await supabaseClient.auth.signInWithPassword({
+          email: emailValue,
+          password: passwordValue
+        });
+
+      console.log("LOGIN RESPONSE:", data, error);
+
+      if (error) {
+        errorBox.textContent = "E-mail ou senha inválidos.";
+        return;
+      }
+
+      const sessionCheck = await supabaseClient.auth.getSession();
+      console.log("SESSION AFTER LOGIN:", sessionCheck);
+
+      if (sessionCheck.data.session) {
+        window.location.href = "dashboard.html";
+      } else {
+        errorBox.textContent =
+          "Sessão não criada. Verifique confirmação de e-mail e domínio no Supabase.";
+      }
     });
+  </script>
 
-    console.log("LOGIN RESPONSE:", data, error);
-
-    const sessionCheck = await supabase.auth.getSession();
-    console.log("SESSION AFTER LOGIN:", sessionCheck);
-
-    if (error) {
-      errorBox.textContent = error.message;
-      return;
-    }
-
-    alert("Login OK, veja o console");
-  });
-</script>
+</body>
+</html>
