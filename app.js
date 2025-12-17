@@ -7,15 +7,42 @@ const supabaseClient = window.supabase.createClient(
   SUPABASE_ANON_KEY
 );
 
+// ===========================
+// FUNÇÃO CHECKOUT MERCADO PAGO
+// ===========================
+async function gerarCheckout(planoNome, preco, perfilId) {
+  try {
+    const response = await fetch("/api/checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ planoNome, preco, perfilId })
+    });
+
+    const data = await response.json();
+
+    if (data.init_point) {
+      window.location.href = data.init_point; // Redireciona para pagamento
+    } else {
+      alert("Erro ao gerar checkout");
+      console.error(data);
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Erro no processo de pagamento");
+  }
+}
+
+/* ===========================
+   FUNÇÕES EXISTENTES DE AGENDAMENTO
+=========================== */
+
 const clienteNomeInput = document.getElementById("cliente_nome");
 const profissionalSelect = document.getElementById("profissional");
 const servicoSelect = document.getElementById("servico");
 const dataInput = document.getElementById("data");
 const horarioSelect = document.getElementById("horario");
 
-/* ===========================
-   PROFISSIONAIS
-=========================== */
+// Carregar profissionais
 async function carregarProfissionais() {
   const { data, error } = await supabaseClient
     .from("profissionais")
@@ -32,9 +59,7 @@ async function carregarProfissionais() {
   });
 }
 
-/* ===========================
-   SERVIÇOS
-=========================== */
+// Carregar serviços
 async function carregarServicos() {
   const { data, error } = await supabaseClient
     .from("servicos")
@@ -52,9 +77,7 @@ async function carregarServicos() {
   });
 }
 
-/* ===========================
-   HORÁRIOS
-=========================== */
+// Carregar horários
 async function carregarHorarios() {
   horarioSelect.innerHTML = '<option value="">Selecione</option>';
 
@@ -84,9 +107,7 @@ async function carregarHorarios() {
   });
 }
 
-/* ===========================
-   AGENDAR (COM BLOQUEIO)
-=========================== */
+// Agendar com verificação de limite
 async function agendar() {
   const clienteNome = clienteNomeInput.value.trim();
 
@@ -95,7 +116,7 @@ async function agendar() {
     return;
   }
 
-  // 🔒 VERIFICA LIMITE DO PLANO
+  // Verificar limite plano
   const { data: podeAgendar, error: erroLimite } =
     await supabaseClient.rpc(
       "pode_criar_agendamento",
@@ -136,15 +157,11 @@ async function agendar() {
   }
 }
 
-/* ===========================
-   EVENTOS
-=========================== */
+// Eventos
 profissionalSelect.addEventListener("change", carregarHorarios);
 servicoSelect.addEventListener("change", carregarHorarios);
 dataInput.addEventListener("change", carregarHorarios);
 
-/* ===========================
-   INIT
-=========================== */
+// Init
 carregarProfissionais();
 carregarServicos();
