@@ -12,63 +12,139 @@ const servicoSelect = document.getElementById("servico");
 const dataInput = document.getElementById("data");
 const horarioSelect = document.getElementById("horario");
 
+/* ===========================
+   CARREGAR PROFISSIONAIS
+=========================== */
 async function carregarProfissionais() {
-  const { data } = await supabaseClient.from("profissionais").select("*");
-  profissionalSelect.innerHTML = '<option value="">Selecione</option>';
+  const { data, error } = await supabaseClient
+    .from("profissionais")
+    .select("id, nome");
+
+  if (error) {
+    console.error("Erro profissionais:", error);
+    return;
+  }
+
+  profissionalSelect.innerHTML =
+    '<option value="">Selecione</option>';
+
   data.forEach(p => {
-    profissionalSelect.innerHTML += `<option value="${p.id}">${p.nome}</option>`;
+    profissionalSelect.innerHTML +=
+      `<option value="${p.id}">${p.nome}</option>`;
   });
 }
 
+/* ===========================
+   CARREGAR SERVIÇOS
+=========================== */
 async function carregarServicos() {
-  const { data } = await supabaseClient.from("servicos").select("*");
-  servicoSelect.innerHTML = '<option value="">Selecione</option>';
+  const { data, error } = await supabaseClient
+    .from("servicos")
+    .select("id, nome, duracao_minutos");
+
+  if (error) {
+    console.error("Erro serviços:", error);
+    return;
+  }
+
+  servicoSelect.innerHTML =
+    '<option value="">Selecione</option>';
+
   data.forEach(s => {
     servicoSelect.innerHTML +=
-      `<option value="${s.id}" data-duracao="${s.duracao_minutos}">${s.nome}</option>`;
+      `<option value="${s.id}" data-duracao="${s.duracao_minutos}">
+        ${s.nome}
+      </option>`;
   });
 }
 
+/* ===========================
+   CARREGAR HORÁRIOS (FIX)
+=========================== */
 async function carregarHorarios() {
-  horarioSelect.innerHTML = '<option value="">Selecione</option>';
+  horarioSelect.innerHTML =
+    '<option value="">Selecione</option>';
 
   const profissionalId = profissionalSelect.value;
-  const data = dataInput.value;
-  const servico = servicoSelect.selectedOptions[0];
+  const dataSelecionada = dataInput.value;
+  const servicoOption = servicoSelect.selectedOptions[0];
 
-  if (!profissionalId || !data || !servico) return;
+  if (!profissionalId || !dataSelecionada || !servicoOption) {
+    console.log("Aguardando seleção completa");
+    return;
+  }
 
-  const duracao = servico.dataset.duracao;
+  const duracao = parseInt(servicoOption.dataset.duracao);
 
-  const { data: horarios } = await supabaseClient.rpc(
+  console.log("Chamando RPC com:", {
+    profissionalId,
+    dataSelecionada,
+    duracao
+  });
+
+  const { data, error } = await supabaseClient.rpc(
     "horarios_disponiveis",
     {
       p_profissional_id: profissionalId,
-      p_data: data,
-      p_duracao_minutos: parseInt(duracao)
+      p_data: dataSelecionada,
+      p_duracao_minutos: duracao
     }
   );
 
-  horarios.forEach(h => {
-    horarioSelect.innerHTML += `<option value="${h.horario}">${h.horario}</option>`;
+  if (error) {
+    console.error("Erro RPC horários:", error);
+    return;
+  }
+
+  console.log("Horários retornados:", data);
+
+  if (!data || data.length === 0) {
+    console.warn("Nenhum horário disponível");
+    return;
+  }
+
+  data.forEach(item => {
+    horarioSelect.innerHTML +=
+      `<option value="${item.horario}">
+        ${item.horario}
+      </option>`;
   });
 }
 
+/* ===========================
+   AGENDAR
+=========================== */
 async function agendar() {
-  const { error } = await supabaseClient.from("agendamentos").insert([{
-    profissional_id: profissionalSelect.value,
-    servico_id: servicoSelect.value,
-    cliente_nome: "Cliente Online",
-    data_hora: `${dataInput.value} ${horarioSelect.value}`
-  }]);
+  const dataHora =
+    `${dataInput.value} ${horarioSelect.value}`;
 
-  if (error) alert(error.message);
-  else alert("Agendamento confirmado!");
+  const { error } = await supabaseClient
+    .from("agendamentos")
+    .insert([{
+      profissional_id: profissionalSelect.value,
+      servico_id: servicoSelect.value,
+      cliente_nome: "Cliente Online",
+      data_hora: dataHora,
+      status: "agendado"
+    }]);
+
+  if (error) {
+    alert(error.message);
+  } else {
+    alert("Agendamento confirmado!");
+    carregarHorarios();
+  }
 }
 
-profissionalSelect.onchange = carregarHorarios;
-servicoSelect.onchange = carregarHorarios;
-dataInput.onchange = carregarHorarios;
+/* ===========================
+   EVENTOS
+=========================== */
+profissionalSelect.addEventListener("change", carregarHorarios);
+servicoSelect.addEventListener("change", carregarHorarios);
+dataInput.addEventListener("change", carregarHorarios);
 
+/* ===========================
+   INIT
+=========================== */
 carregarProfissionais();
 carregarServicos();
