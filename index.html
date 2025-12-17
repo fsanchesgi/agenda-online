@@ -1,12 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Agenda Online | Agende seu horário</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
 <header>
-  <strong>Agenda Online</strong>
+  <div class="logo">Agenda<span>Online</span></div>
   <nav>
     <a href="/login.html">Sou profissional</a>
   </nav>
 </header>
 
-<div class="container">
+<main class="container">
   <h1>Agende seu horário</h1>
+  <p class="subtitle">Escolha o serviço, data e horário disponíveis</p>
 
   <div class="form-group">
     <label>Profissional</label>
@@ -29,4 +40,8 @@
   </div>
 
   <button onclick="agendar()">Confirmar Agendamento</button>
-</div>
+</main>
+
+<script src="/app.js"></script>
+</body>
+</html>
