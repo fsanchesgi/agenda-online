@@ -1,22 +1,18 @@
-<header>
-  <strong>Agenda Online</strong>
-  <nav>
-    <a href="/">Agendamento</a>
-  </nav>
-</header>
+const SUPABASE_URL = "https://uqwbduinwugaqexsvkxc.supabase.co";
+const SUPABASE_ANON_KEY =
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVxd2JkdWlud3VnYXFleHN2a3hjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU3MTk5MjMsImV4cCI6MjA4MTI5NTkyM30._GzXlkNAvqbevYjmi-crhvSKGQQfX3yjzTWT5PTvIxE";
 
-<div class="container">
-  <h2>Login do Profissional</h2>
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
 
-  <div class="form-group">
-    <label>Email</label>
-    <input id="email" type="email">
-  </div>
+async function login() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
 
-  <div class="form-group">
-    <label>Senha</label>
-    <input id="password" type="password">
-  </div>
+  const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
 
-  <button onclick="login()">Entrar</button>
-</div>
+  if (error) alert(error.message);
+  else window.location.href = "/dashboard.html";
+}
