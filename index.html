@@ -1,56 +1,29 @@
-<!-- ============================= -->
-<!-- ============================= -->
-<!-- 🏠 index.html (Landing Page de Conversão) -->
-<!-- ============================= -->
-
-
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-<meta charset="UTF-8" />
-<title>Agenda Online para Barbeiros e Esteticistas</title>
-<meta name="description" content="Agenda online simples para barbeiros e esteticistas receberem agendamentos 24h." />
-<link rel="stylesheet" href="css/style.css" />
+  <meta charset="UTF-8" />
+  <title>Agendamento</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
-<header class="hero">
-<h1>Pare de perder clientes por falta de organização</h1>
-<p class="subtitle">Agenda online simples para barbeiros e esteticistas receberem agendamentos 24h por dia.</p>
-<a class="btn" href="register.html">Criar minha agenda grátis</a>
-</header>
 
+  <h1>Agende seu horário</h1>
 
-<section class="benefits">
-<h2>Por que usar?</h2>
-<ul>
-<li>✔ Clientes marcam sozinhos, sem mensagens</li>
-<li>✔ Evite horários vazios e esquecimentos</li>
-<li>✔ Tudo organizado em um só lugar</li>
-<li>✔ Funciona direto no celular</li>
-</ul>
-</section>
+  <label>Profissional</label>
+  <select id="profissional"></select>
 
+  <label>Serviço</label>
+  <select id="servico"></select>
 
-<section class="how-it-works">
-<h2>Como funciona</h2>
-<ol>
-<li>Você cria sua agenda</li>
-<li>Compartilha seu link com clientes</li>
-<li>Recebe agendamentos automaticamente</li>
-</ol>
-</section>
+  <label>Data</label>
+  <input type="date" id="data" />
 
+  <label>Horário</label>
+  <select id="horario"></select>
 
-<section class="pricing">
-<h2>Preço simples</h2>
-<p class="price">R$39 / mês</p>
-<p>Sem contrato • Cancele quando quiser</p>
-<a class="btn" href="register.html">Começar agora</a>
-</section>
+  <button onclick="agendar()">Confirmar Agendamento</button>
 
-
-<footer>
-<p>© 2025 Agenda Online</p>
-</footer>
+  <script src="app.js"></script>
 </body>
 </html>
