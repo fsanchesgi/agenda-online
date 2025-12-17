@@ -2,53 +2,53 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Agenda Online | Agende seu horário</title>
+  <title>Agendar | Agenda Online</title>
   <link rel="stylesheet" href="/style.css">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
-
 <header>
   <div class="logo">Agenda<span>Online</span></div>
   <nav>
-    <a href="/login.html">Sou profissional</a>
+    <a href="/index.html">Agendar</a>
+    <a href="/dashboard.html">Dashboard</a>
+    <a href="/planos.html">Planos</a>
   </nav>
 </header>
 
 <main class="container">
   <h1>Agende seu horário</h1>
-  <p class="subtitle">Preencha os dados abaixo para confirmar</p>
 
   <div class="form-group">
-    <label>Seu nome</label>
-    <input type="text" id="cliente_nome" placeholder="Ex: João Silva">
+    <label for="cliente_nome">Seu nome</label>
+    <input type="text" id="cliente_nome" placeholder="Digite seu nome">
   </div>
 
   <div class="form-group">
-    <label>Profissional</label>
+    <label for="profissional">Profissional</label>
     <select id="profissional"></select>
   </div>
 
   <div class="form-group">
-    <label>Serviço</label>
+    <label for="servico">Serviço</label>
     <select id="servico"></select>
   </div>
 
   <div class="form-group">
-    <label>Data</label>
+    <label for="data">Data</label>
     <input type="date" id="data">
   </div>
 
   <div class="form-group">
-    <label>Horário</label>
+    <label for="horario">Horário</label>
     <select id="horario"></select>
   </div>
 
-  <!-- 🔴 FIX AQUI -->
-  <button type="button" onclick="agendar()">
-    Confirmar Agendamento
-  </button>
+  <button onclick="agendar()">Confirmar Agendamento</button>
 </main>
+
+<footer>
+  <p>© Agenda Online - Todos os direitos reservados</p>
+</footer>
 
 <script src="/app.js"></script>
 </body>
