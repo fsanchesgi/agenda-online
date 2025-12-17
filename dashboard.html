@@ -1,18 +1,12 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <title>Minha Agenda</title>
+<header>
+  <strong>Agenda Online</strong>
+  <nav>
+    <a href="/">Novo agendamento</a>
+    <a href="#" onclick="logout()">Sair</a>
+  </nav>
+</header>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-</head>
-<body>
-
+<div class="container">
   <h2>Minha Agenda</h2>
-  <button onclick="logout()">Sair</button>
-
-  <ul id="agenda"></ul>
-
-  <script src="/dashboard.js"></script>
-</body>
-</html>
+  <ul id="agenda" class="agenda-list"></ul>
+</div>
