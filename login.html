@@ -8,7 +8,7 @@
   <link rel="icon" type="image/png" href="images/timelypro-favicon.png" />
   <link rel="stylesheet" href="style.css" />
 
-  <!-- Supabase SDK -->
+  <!-- Supabase SDK (biblioteca global: window.supabase) -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
@@ -28,12 +28,10 @@
       <form id="login-form">
         <input type="email" id="email" placeholder="Seu e-mail" required />
         <input type="password" id="password" placeholder="Sua senha" required />
-
         <button type="submit" class="btn-primary">Entrar</button>
       </form>
 
       <p id="login-error" class="error-message"></p>
-
       <a href="index.html" class="back-link">← Voltar para o site</a>
     </section>
   </main>
@@ -42,7 +40,7 @@
 
   <script>
     // ================================
-    // SUPABASE CLIENT (ÚNICO)
+    // SUPABASE CLIENT (NOME SEGURO)
     // ================================
     const SUPABASE_URL = "https://uqwbduinwugaqexsvkxc.supabase.co";
     const SUPABASE_ANON_KEY =
@@ -72,21 +70,23 @@
           password: passwordValue
         });
 
-      console.log("LOGIN RESPONSE:", data, error);
+      console.log("LOGIN:", data, error);
 
       if (error) {
-        errorBox.textContent = "E-mail ou senha inválidos.";
+        errorBox.textContent = error.message;
         return;
       }
 
-      const sessionCheck = await supabaseClient.auth.getSession();
-      console.log("SESSION AFTER LOGIN:", sessionCheck);
+      const { data: sessionData } =
+        await supabaseClient.auth.getSession();
 
-      if (sessionCheck.data.session) {
+      console.log("SESSION:", sessionData);
+
+      if (sessionData.session) {
         window.location.href = "dashboard.html";
       } else {
         errorBox.textContent =
-          "Sessão não criada. Verifique confirmação de e-mail e domínio no Supabase.";
+          "Sessão não criada. Verifique domínio e confirmação de e-mail.";
       }
     });
   </script>
