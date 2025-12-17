@@ -1,10 +1,10 @@
-// 🔐 CONFIGURAÇÃO SUPABASE
-const supabaseUrl = "SUA_PROJECT_URL";
-const supabaseKey = "SUA_ANON_KEY";
+// 🔐 SUPABASE (DECLARADO UMA ÚNICA VEZ)
+const SUPABASE_URL = "SUA_PROJECT_URL";
+const SUPABASE_ANON_KEY = "SUA_ANON_KEY";
 
 const supabase = window.supabase.createClient(
-  supabaseUrl,
-  supabaseKey
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
 );
 
 // 🎯 ELEMENTOS
@@ -13,42 +13,36 @@ const servicoSelect = document.getElementById('servico');
 const horarioSelect = document.getElementById('horario');
 const dataInput = document.getElementById('data');
 
-// 📥 CARREGAR PROFISSIONAIS
+// 📥 PROFISSIONAIS
 async function carregarProfissionais() {
   const { data, error } = await supabase
     .from('profissionais')
     .select('*');
 
-  console.log('profissionais:', data, error);
-
   if (error) {
-    alert(error.message);
+    console.error(error);
     return;
   }
 
   profissionalSelect.innerHTML = '<option value="">Selecione</option>';
-
   data.forEach(p => {
     profissionalSelect.innerHTML +=
       `<option value="${p.id}">${p.nome}</option>`;
   });
 }
 
-// 📥 CARREGAR SERVIÇOS
+// 📥 SERVIÇOS
 async function carregarServicos() {
   const { data, error } = await supabase
     .from('servicos')
     .select('*');
 
-  console.log('servicos:', data, error);
-
   if (error) {
-    alert(error.message);
+    console.error(error);
     return;
   }
 
   servicoSelect.innerHTML = '<option value="">Selecione</option>';
-
   data.forEach(s => {
     servicoSelect.innerHTML +=
       `<option value="${s.id}" data-duracao="${s.duracao_minutos}">
@@ -57,17 +51,16 @@ async function carregarServicos() {
   });
 }
 
-// ⏰ CARREGAR HORÁRIOS
+// ⏰ HORÁRIOS
 async function carregarHorarios() {
   horarioSelect.innerHTML = '<option value="">Selecione</option>';
 
   const profissionalId = profissionalSelect.value;
   const data = dataInput.value;
-  const servicoOption = servicoSelect.selectedOptions[0];
+  const servico = servicoSelect.selectedOptions[0];
+  if (!profissionalId || !data || !servico) return;
 
-  if (!profissionalId || !data || !servicoOption) return;
-
-  const duracao = servicoOption.dataset.duracao;
+  const duracao = servico.dataset.duracao;
 
   const { data: horarios, error } = await supabase.rpc(
     'horarios_disponiveis',
@@ -78,10 +71,8 @@ async function carregarHorarios() {
     }
   );
 
-  console.log('horarios:', horarios, error);
-
   if (error) {
-    alert(error.message);
+    console.error(error);
     return;
   }
 
@@ -107,14 +98,12 @@ async function agendar() {
 
   const { error } = await supabase
     .from('agendamentos')
-    .insert([
-      {
-        profissional_id: profissionalId,
-        servico_id: servicoId,
-        cliente_nome: 'Cliente Teste',
-        data_hora: dataHora
-      }
-    ]);
+    .insert([{
+      profissional_id: profissionalId,
+      servico_id: servicoId,
+      cliente_nome: 'Cliente Teste',
+      data_hora: dataHora
+    }]);
 
   if (error) {
     alert(error.message);
