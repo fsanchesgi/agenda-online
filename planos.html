@@ -43,7 +43,7 @@
         <li>Página personalizada</li>
         <li>Dashboard completo</li>
       </ul>
-      <button onclick="alert('Pagamento será ativado no próximo passo')">
+      <button onclick="gerarCheckout('PRO', 39.90, 'perfil-id-do-usuario')">
         Quero esse plano
       </button>
     </div>
@@ -56,7 +56,7 @@
         <li>Relatórios avançados</li>
         <li>Marca branca</li>
       </ul>
-      <button onclick="alert('Pagamento será ativado no próximo passo')">
+      <button onclick="gerarCheckout('PREMIUM', 79.90, 'perfil-id-do-usuario')">
         Falar com vendas
       </button>
     </div>
@@ -68,5 +68,6 @@
   <p>© Agenda Online - Todos os direitos reservados</p>
 </footer>
 
+<script src="/app.js"></script>
 </body>
 </html>
