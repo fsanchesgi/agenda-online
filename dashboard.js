@@ -1,5 +1,5 @@
 const SUPABASE_URL = "https://uqwbduinwugaqexsvkxc.supabase.co";
-const SUPABASE_ANON_KEY = "SUA_ANON_KEY_AQUI";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVxd2JkdWlud3VnYXFleHN2a3hjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU3MTk5MjMsImV4cCI6MjA4MTI5NTkyM30._GzXlkNAvqbevYjmi-crhvSKGQQfX3yjzTWT5PTvIxE";
 
 const supabaseClient = window.supabase.createClient(
   SUPABASE_URL,
@@ -14,16 +14,19 @@ async function carregarAgenda() {
     return;
   }
 
-  // pega o profissional vinculado ao user
   const { data: profissional } = await supabaseClient
     .from('profissionais')
-    .select('id')
+    .select('id, nome')
     .eq('user_id', user.id)
     .single();
 
   const { data: agendamentos } = await supabaseClient
     .from('agendamentos')
-    .select('*')
+    .select(`
+      data_hora,
+      cliente_nome,
+      servicos ( nome )
+    `)
     .eq('profissional_id', profissional.id)
     .order('data_hora');
 
@@ -33,7 +36,9 @@ async function carregarAgenda() {
   agendamentos.forEach(a => {
     ul.innerHTML += `
       <li>
-        ${a.data_hora} — ${a.cliente_nome}
+        <strong>${new Date(a.data_hora).toLocaleString()}</strong><br>
+        ${a.cliente_nome}
+        <span class="badge">${a.servicos.nome}</span>
       </li>
     `;
   });
