@@ -2,54 +2,80 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Agendar | Agenda Online</title>
+  <title>Agenda Online | Organize seus agendamentos</title>
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 <header>
   <div class="logo">Agenda<span>Online</span></div>
   <nav>
-    <a href="/index.html">Agendar</a>
+    <a href="/index.html">Home</a>
+    <a href="/agendar.html">Agendar</a>
     <a href="/dashboard.html">Dashboard</a>
     <a href="/planos.html">Planos</a>
+    <a href="/login.html">Login</a>
   </nav>
 </header>
 
 <main class="container">
-  <h1>Agende seu horário</h1>
+  <section class="hero">
+    <h1>Organize seus agendamentos com facilidade</h1>
+    <p>Mais clientes, menos faltas, tudo na palma da sua mão.</p>
+    <a href="/agendar.html" class="btn-cta">Agendar agora</a>
+  </section>
 
-  <div class="form-group">
-    <label for="cliente_nome">Seu nome</label>
-    <input type="text" id="cliente_nome" placeholder="Digite seu nome">
-  </div>
+  <section class="benefits">
+    <div class="card">
+      <h3>Controle total</h3>
+      <p>Visualize todos os agendamentos de forma simples e prática.</p>
+    </div>
+    <div class="card">
+      <h3>Mais clientes</h3>
+      <p>Gerencie horários disponíveis e aumente sua agenda.</p>
+    </div>
+    <div class="card">
+      <h3>Relatórios</h3>
+      <p>Tenha insights de desempenho e acompanhamento dos serviços.</p>
+    </div>
+  </section>
 
-  <div class="form-group">
-    <label for="profissional">Profissional</label>
-    <select id="profissional"></select>
-  </div>
-
-  <div class="form-group">
-    <label for="servico">Serviço</label>
-    <select id="servico"></select>
-  </div>
-
-  <div class="form-group">
-    <label for="data">Data</label>
-    <input type="date" id="data">
-  </div>
-
-  <div class="form-group">
-    <label for="horario">Horário</label>
-    <select id="horario"></select>
-  </div>
-
-  <button onclick="agendar()">Confirmar Agendamento</button>
+  <section class="plan-preview">
+    <h2>Escolha seu plano</h2>
+    <div class="planos">
+      <div class="plano">
+        <h3>FREE</h3>
+        <p>R$ 0</p>
+        <ul>
+          <li>1 Profissional</li>
+          <li>10 Agendamentos/mês</li>
+        </ul>
+        <a href="/planos.html" class="btn-cta">Escolher</a>
+      </div>
+      <div class="plano destaque">
+        <h3>PRO</h3>
+        <p>R$ 39,90/mês</p>
+        <ul>
+          <li>Profissionais ilimitados</li>
+          <li>Agendamentos ilimitados</li>
+          <li>Dashboard completo</li>
+        </ul>
+        <a href="/planos.html" class="btn-cta">Escolher</a>
+      </div>
+      <div class="plano">
+        <h3>PREMIUM</h3>
+        <p>R$ 79,90/mês</p>
+        <ul>
+          <li>Múltiplas unidades</li>
+          <li>Relatórios avançados</li>
+        </ul>
+        <a href="/planos.html" class="btn-cta">Escolher</a>
+      </div>
+    </div>
+  </section>
 </main>
 
 <footer>
   <p>© Agenda Online - Todos os direitos reservados</p>
 </footer>
-
-<script src="/app.js"></script>
 </body>
 </html>
