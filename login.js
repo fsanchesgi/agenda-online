@@ -1,24 +1,22 @@
-const SUPABASE_URL = "https://uqwbduinwugaqexsvkxc.supabase.co";
-const SUPABASE_ANON_KEY = "SUA_ANON_KEY_AQUI";
+<header>
+  <strong>Agenda Online</strong>
+  <nav>
+    <a href="/">Agendamento</a>
+  </nav>
+</header>
 
-const supabaseClient = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY
-);
+<div class="container">
+  <h2>Login do Profissional</h2>
 
-async function login() {
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
+  <div class="form-group">
+    <label>Email</label>
+    <input id="email" type="email">
+  </div>
 
-  const { data, error } = await supabaseClient.auth.signInWithPassword({
-    email,
-    password
-  });
+  <div class="form-group">
+    <label>Senha</label>
+    <input id="password" type="password">
+  </div>
 
-  if (error) {
-    alert(error.message);
-    return;
-  }
-
-  window.location.href = "/dashboard.html";
-}
+  <button onclick="login()">Entrar</button>
+</div>
