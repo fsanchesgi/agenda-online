@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Agendar Horário | TimelyPro</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+
+<h1>Agendamento</h1>
+
+<select id="profissional"></select>
+<input id="nome" placeholder="Seu nome" />
+<input id="whatsapp" placeholder="WhatsApp" />
+<input type="datetime-local" id="datahora" />
+
+<button onclick="agendar()">Agendar</button>
+
+<script>
+const supabaseClient = supabase.createClient(
+  "https://uqwbduinwugaqexsvkxc.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVxd2JkdWlud3VnYXFleHN2a3hjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU3MTk5MjMsImV4cCI6MjA4MTI5NTkyM30._GzXlkNAvqbevYjmi-crhvSKGQQfX3yjzTWT5PTvIxE"
+);
+
+const estabelecimentoId =
+  new URLSearchParams(window.location.search).get("est");
+
+async function carregarProfissionais() {
+  const { data } = await supabaseClient
+    .from("profissionais")
+    .select("*")
+    .eq("estabelecimento_id", estabelecimentoId)
+    .eq("ativo", true);
+
+  const select = document.getElementById("profissional");
+  data.forEach(p => {
+    const opt = document.createElement("option");
+    opt.value = p.id;
+    opt.textContent = p.nome;
+    select.appendChild(opt);
+  });
+}
+
+async function agendar() {
+  const profissional_id = document.getElementById("profissional").value;
+
+  await supabaseClient.from("agendamentos").insert({
+    profissional_id,
+    cliente_nome: document.getElementById("nome").value,
+    cliente_whatsapp: document.getElementById("whatsapp").value,
+    data_hora: document.getElementById("datahora").value
+  });
+
+  alert("Agendamento realizado!");
+}
+
+carregarProfissionais();
+</script>
+
+</body>
+</html>
