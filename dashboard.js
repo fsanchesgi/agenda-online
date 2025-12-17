@@ -8,17 +8,13 @@
 <body>
 <header>
   <div class="logo">Agenda<span>Online</span></div>
-  <nav>
-    <a href="/index.html">Agendar</a>
-    <a href="/dashboard.html">Dashboard</a>
-    <a href="/planos.html">Planos</a>
-  </nav>
+  <button onclick="logout()" class="logout-btn">Sair</button>
 </header>
 
 <main class="container">
   <h1>Dashboard</h1>
   <p>Bem-vindo ao seu painel de controle.</p>
-  <!-- Aqui você pode listar agendamentos, estatísticas, etc -->
+  <div id="agendamentos" class="cards-container"></div>
 </main>
 
 <footer>
