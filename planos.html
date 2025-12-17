@@ -16,12 +16,38 @@
 </header>
 
 <section class="container">
-  <h2>Escolha seu plano</h2>
+  <h1>Planos TimelyPro</h1>
+  <p>Escolha o plano ideal para profissionalizar seus agendamentos.</p>
 
-  <div class="plan-card">
-    <h3>Plano Premium</h3>
-    <p>Agendamentos ilimitados</p>
-    <button onclick="checkout('premium')" class="btn-primary">Contratar</button>
+  <div class="plan-grid">
+    <div class="plan-card">
+      <h3>Plano Básico</h3>
+      <p>Ideal para começar</p>
+      <div class="plan-price">R$ 29/mês</div>
+      <ul>
+        <li>✔ Agendamentos online</li>
+        <li>✔ 1 profissional</li>
+        <li>✔ Suporte básico</li>
+      </ul>
+      <button class="btn-primary" onclick="checkout('basico')">
+        Assinar Básico
+      </button>
+    </div>
+
+    <div class="plan-card">
+      <h3>Plano Premium</h3>
+      <p>Para negócios profissionais</p>
+      <div class="plan-price">R$ 49/mês</div>
+      <ul>
+        <li>✔ Agendamentos ilimitados</li>
+        <li>✔ Múltiplos profissionais</li>
+        <li>✔ Dashboard completo</li>
+        <li>✔ Suporte prioritário</li>
+      </ul>
+      <button class="btn-primary" onclick="checkout('premium')">
+        Assinar Premium
+      </button>
+    </div>
   </div>
 </section>
 
