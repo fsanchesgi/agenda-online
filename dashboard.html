@@ -1,30 +1,31 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Dashboard | Agenda Online</title>
-  <link rel="stylesheet" href="/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | TimelyPro</title>
+  <link rel="icon" type="image/png" href="timelypro-favicon.png">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-  <div class="logo">Agenda<span>Online</span></div>
-  <nav>
-    <a href="/index.html">Agendar</a>
-    <a href="/dashboard.html">Dashboard</a>
-    <a href="/planos.html">Planos</a>
-  </nav>
-</header>
+  <header>
+    <img src="timelypro-logo.png" alt="TimelyPro" class="logo">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="planos.html">Planos</a>
+      <button id="logoutBtn">Sair</button>
+    </nav>
+  </header>
 
-<main class="container">
-  <h1>Dashboard</h1>
-  <p>Bem-vindo ao seu painel de controle.</p>
-  <div id="agendamentos"></div>
-</main>
+  <section class="dashboard">
+    <h1>Meus Agendamentos</h1>
+    <div id="agendamentos"></div>
+  </section>
 
-<footer>
-  <p>© Agenda Online - Todos os direitos reservados</p>
-</footer>
+  <footer>
+    <p>&copy; 2025 TimelyPro. Todos os direitos reservados.</p>
+  </footer>
 
-<script src="/app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
