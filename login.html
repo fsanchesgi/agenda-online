@@ -1,29 +1,37 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Login | Agenda Online</title>
-  <link rel="stylesheet" href="/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | TimelyPro</title>
+  <link rel="icon" type="image/png" href="timelypro-favicon.png">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-  <div class="logo">Agenda<span>Online</span></div>
-</header>
+  <header>
+    <img src="timelypro-logo.png" alt="TimelyPro" class="logo">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="agendar.html">Agendar</a>
+      <a href="planos.html">Planos</a>
+    </nav>
+  </header>
 
-<main class="container login-container">
-  <h1>Faça seu login</h1>
-  <div class="form-group">
-    <label for="email">Email</label>
-    <input type="email" id="email" placeholder="Digite seu email">
-  </div>
-  <div class="form-group">
-    <label for="senha">Senha</label>
-    <input type="password" id="senha" placeholder="Digite sua senha">
-  </div>
-  <button onclick="login()" class="btn-cta">Entrar</button>
-  <p>Voltar para <a href="/index.html">Página Inicial</a></p>
-</main>
+  <section class="login">
+    <h1>Login</h1>
+    <form id="formLogin">
+      <label>Email</label>
+      <input type="email" id="email" required>
+      <label>Senha</label>
+      <input type="password" id="senha" required>
+      <button type="submit" class="btn">Entrar</button>
+    </form>
+  </section>
 
-<script src="/app.js"></script>
+  <footer>
+    <p>&copy; 2025 TimelyPro. Todos os direitos reservados.</p>
+  </footer>
+
+  <script src="app.js"></script>
 </body>
 </html>
