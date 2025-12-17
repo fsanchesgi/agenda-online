@@ -2,43 +2,60 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>TimelyPro | Agendamentos Profissionais</title>
-  <link rel="icon" href="images/timelypro-favicon.png">
-  <link rel="stylesheet" href="style.css">
+  <title>TimelyPro | Agendamentos Inteligentes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
-<header class="navbar">
-  <div class="nav-left">
-    <img src="images/timelypro-logo.png" class="logo">
-  </div>
-  <nav class="nav-right">
-    <a href="index.html">Início</a>
+<header class="site-header">
+  <img src="images/timelypro-logo.png" class="logo" />
+
+  <nav>
+    <a href="institucional.html">O que é</a>
     <a href="planos.html">Planos</a>
-    <a href="login.html">Login</a>
-    <a href="agendar.html" class="btn-nav">Agendar</a>
+    <a href="login.html">Entrar</a>
   </nav>
 </header>
 
-<section class="hero" style="background-image:url('images/hero-background.png')">
-  <div class="hero-content">
-    <h1>Agendamento online profissional</h1>
-    <p>Automatize horários, profissionais e serviços do seu negócio.</p>
-    <a href="agendar.html" class="btn-primary">Começar agora</a>
+<!-- 🎞️ CARROSSEL -->
+<section class="hero-carousel">
+  <div class="carousel-slide active">
+    <h1>Organize sua agenda profissional</h1>
+    <p>Atenda mais clientes sem confusão</p>
+  </div>
+
+  <div class="carousel-slide">
+    <h1>Controle seus ganhos</h1>
+    <p>Veja relatórios e faturamento</p>
+  </div>
+
+  <div class="carousel-slide">
+    <h1>Venda mais com automação</h1>
+    <p>Lembretes automáticos no WhatsApp</p>
   </div>
 </section>
 
-<section class="carousel">
-  <div class="carousel-track">
-    <img src="images/carousel1.png">
-    <img src="images/carousel2.png">
-    <img src="images/carousel3.png">
-  </div>
+<section class="cta">
+  <a href="login.html" class="btn-primary">Começar grátis</a>
 </section>
 
-<footer>
-  <p>© 2025 TimelyPro — Todos os direitos reservados</p>
+<footer class="site-footer">
+  © 2025 TimelyPro
 </footer>
+
+<script>
+  let index = 0;
+  const slides = document.querySelectorAll(".carousel-slide");
+
+  setInterval(() => {
+    slides[index].classList.remove("active");
+    index = (index + 1) % slides.length;
+    slides[index].classList.add("active");
+  }, 4000);
+</script>
 
 </body>
 </html>
