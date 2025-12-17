@@ -8,7 +8,7 @@
   <link rel="icon" type="image/png" href="images/timelypro-favicon.png" />
   <link rel="stylesheet" href="style.css" />
 
-  <!-- Supabase SDK (biblioteca global: window.supabase) -->
+  <!-- Supabase SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
@@ -25,7 +25,8 @@
       <h1>Entrar</h1>
       <p class="login-subtitle">Acesse seu painel TimelyPro</p>
 
-      <form id="login-form">
+      <!-- 🔥 SEM script inline -->
+      <form onsubmit="event.preventDefault(); login();">
         <input type="email" id="email" placeholder="Seu e-mail" required />
         <input type="password" id="password" placeholder="Sua senha" required />
         <button type="submit" class="btn-primary">Entrar</button>
@@ -38,58 +39,8 @@
 
   <footer class="login-footer">© 2025 TimelyPro</footer>
 
-  <script>
-    // ================================
-    // SUPABASE CLIENT (NOME SEGURO)
-    // ================================
-    const SUPABASE_URL = "https://uqwbduinwugaqexsvkxc.supabase.co";
-    const SUPABASE_ANON_KEY =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVxd2JkdWlud3VnYXFleHN2a3hjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU3MTk5MjMsImV4cCI6MjA4MTI5NTkyM30._GzXlkNAvqbevYjmi-crhvSKGQQfX3yjzTWT5PTvIxE";
-
-    const supabaseClient = window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_ANON_KEY
-    );
-
-    // ================================
-    // LOGIN FLOW
-    // ================================
-    const form = document.getElementById("login-form");
-    const errorBox = document.getElementById("login-error");
-
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      errorBox.textContent = "";
-
-      const emailValue = document.getElementById("email").value.trim();
-      const passwordValue = document.getElementById("password").value;
-
-      const { data, error } =
-        await supabaseClient.auth.signInWithPassword({
-          email: emailValue,
-          password: passwordValue
-        });
-
-      console.log("LOGIN:", data, error);
-
-      if (error) {
-        errorBox.textContent = error.message;
-        return;
-      }
-
-      const { data: sessionData } =
-        await supabaseClient.auth.getSession();
-
-      console.log("SESSION:", sessionData);
-
-      if (sessionData.session) {
-        window.location.href = "dashboard.html";
-      } else {
-        errorBox.textContent =
-          "Sessão não criada. Verifique domínio e confirmação de e-mail.";
-      }
-    });
-  </script>
+  <!-- 🔥 APENAS ESTE SCRIPT -->
+  <script src="login.js"></script>
 
 </body>
 </html>
