@@ -24,11 +24,22 @@ async function login() {
   const { data: sessionData } =
     await supabaseClient.auth.getSession();
 
-  if (!sessionData.session) return;
-
   const userId = sessionData.session.user.id;
 
-  // 🔎 Verifica se já existe assinatura
+  /* ================= PERFIL ================= */
+  const { data: perfil } = await supabaseClient
+    .from("profiles")
+    .select("id")
+    .eq("id", userId)
+    .maybeSingle();
+
+  if (!perfil) {
+    await supabaseClient.from("profiles").insert({
+      id: userId
+    });
+  }
+
+  /* ================= ASSINATURA ================= */
   const { data: assinatura } = await supabaseClient
     .from("assinaturas")
     .select("id")
@@ -36,14 +47,12 @@ async function login() {
     .maybeSingle();
 
   if (!assinatura) {
-    // 🔎 Busca plano FREE
     const { data: planoFree } = await supabaseClient
       .from("plans")
       .select("id")
       .eq("name", "free")
       .single();
 
-    // 🟢 Cria assinatura FREE
     await supabaseClient.from("assinaturas").insert({
       perfil_id: userId,
       plano_id: planoFree.id,
