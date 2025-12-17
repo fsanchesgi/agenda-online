@@ -2,41 +2,29 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Planos | TimelyPro</title>
-  <link rel="icon" type="image/png" href="timelypro-favicon.png">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <img src="timelypro-logo.png" alt="TimelyPro" class="logo">
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="agendar.html">Agendar</a>
-      <a href="login.html">Login</a>
-    </nav>
-  </header>
 
-  <section class="planos">
-    <h1>Escolha seu plano</h1>
-    <div class="cards-planos">
-      <div class="card-plano">
-        <h2>Plano Básico</h2>
-        <p>R$19,90/mês</p>
-        <button onclick="gerarCheckout('Básico',19.90)">Assinar</button>
-      </div>
-      <div class="card-plano">
-        <h2>Plano Pro</h2>
-        <p>R$39,90/mês</p>
-        <button onclick="gerarCheckout('Pro',39.90)">Assinar</button>
-      </div>
-    </div>
-  </section>
+<header class="navbar">
+  <img src="images/timelypro-logo.png" class="logo">
+  <nav>
+    <a href="index.html">Início</a>
+    <a href="login.html">Login</a>
+  </nav>
+</header>
 
-  <footer>
-    <p>&copy; 2025 TimelyPro. Todos os direitos reservados.</p>
-  </footer>
+<section class="container">
+  <h2>Escolha seu plano</h2>
 
-  <script src="app.js"></script>
+  <div class="plan-card">
+    <h3>Plano Premium</h3>
+    <p>Agendamentos ilimitados</p>
+    <button onclick="checkout('premium')" class="btn-primary">Contratar</button>
+  </div>
+</section>
+
+<script src="app.js"></script>
 </body>
 </html>
