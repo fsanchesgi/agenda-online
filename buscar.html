@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Buscar Profissionais | TimelyPro</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+
+<h1>Buscar Profissionais</h1>
+
+<input id="cidade" placeholder="Cidade" />
+<input id="estado" placeholder="Estado" />
+<button onclick="buscar()">Buscar</button>
+
+<div id="resultado"></div>
+
+<script>
+const supabaseClient = supabase.createClient(
+  "https://uqwbduinwugaqexsvkxc.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVxd2JkdWlud3VnYXFleHN2a3hjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU3MTk5MjMsImV4cCI6MjA4MTI5NTkyM30._GzXlkNAvqbevYjmi-crhvSKGQQfX3yjzTWT5PTvIxE"
+);
+
+async function buscar() {
+  const cidade = document.getElementById("cidade").value;
+  const estado = document.getElementById("estado").value;
+
+  const { data } = await supabaseClient
+    .from("estabelecimentos")
+    .select("*")
+    .eq("cidade", cidade)
+    .eq("estado", estado)
+    .eq("ativo", true);
+
+  const div = document.getElementById("resultado");
+  div.innerHTML = "";
+
+  data.forEach(e => {
+    div.innerHTML += `
+      <div>
+        <strong>${e.nome}</strong><br/>
+        ${e.cidade} - ${e.estado}
+      </div>
+    `;
+  });
+}
+</script>
+
+</body>
+</html>
