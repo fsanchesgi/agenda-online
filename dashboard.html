@@ -2,30 +2,23 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard | TimelyPro</title>
-  <link rel="icon" type="image/png" href="timelypro-favicon.png">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <img src="timelypro-logo.png" alt="TimelyPro" class="logo">
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="planos.html">Planos</a>
-      <button id="logoutBtn">Sair</button>
-    </nav>
-  </header>
 
-  <section class="dashboard">
-    <h1>Meus Agendamentos</h1>
-    <div id="agendamentos"></div>
-  </section>
+<header class="navbar">
+  <img src="images/timelypro-logo.png" class="logo">
+  <nav>
+    <a href="#" onclick="logout()">Sair</a>
+  </nav>
+</header>
 
-  <footer>
-    <p>&copy; 2025 TimelyPro. Todos os direitos reservados.</p>
-  </footer>
+<section class="container">
+  <h1>Dashboard</h1>
+  <div id="agendamentos"></div>
+</section>
 
-  <script src="app.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
