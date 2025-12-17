@@ -1,24 +1,73 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Dashboard | TimelyPro</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="icon" href="images/timelypro-favicon.png" />
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Supabase SDK v2 -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body>
 
-<header class="navbar">
-  <img src="images/timelypro-logo.png" class="logo">
-  <nav>
-    <a href="#" onclick="logout()">Sair</a>
-  </nav>
-</header>
+<body class="dashboard-page">
 
-<section class="container">
-  <h1>Dashboard</h1>
-  <div id="agendamentos"></div>
-</section>
+  <header class="dashboard-header">
+    <img src="images/timelypro-logo.png" class="logo logo-dashboard" />
+    <button id="logoutBtn" class="btn-outline">Sair</button>
+  </header>
 
-<script src="app.js"></script>
+  <main class="dashboard-container">
+    <h1>Bem-vindo ao TimelyPro</h1>
+    <p id="user-email"></p>
+
+    <section class="dashboard-card">
+      <h2>Seu plano</h2>
+      <p id="user-plan">Plano Gratuito</p>
+    </section>
+  </main>
+
+  <script>
+    // =========================
+    // SUPABASE CLIENT
+    // =========================
+    const SUPABASE_URL = "https://uqwbduinwugaqexsvkxc.supabase.co";
+    const SUPABASE_ANON_KEY =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVxd2JkdWlud3VnYXFleHN2a3hjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU3MTk5MjMsImV4cCI6MjA4MTI5NTkyM30._GzXlkNAvqbevYjmi-crhvSKGQQfX3yjzTWT5PTvIxE";
+
+    const supabase = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_ANON_KEY
+    );
+
+    // =========================
+    // PROTEÇÃO DO DASHBOARD
+    // =========================
+    async function protectDashboard() {
+      const { data, error } = await supabase.auth.getSession();
+
+      if (error || !data.session) {
+        window.location.href = "login.html";
+        return;
+      }
+
+      // Sessão válida
+      document.getElementById("user-email").textContent =
+        "Logado como: " + data.session.user.email;
+    }
+
+    protectDashboard();
+
+    // =========================
+    // LOGOUT
+    // =========================
+    document.getElementById("logoutBtn").addEventListener("click", async () => {
+      await supabase.auth.signOut();
+      window.location.href = "login.html";
+    });
+  </script>
+
 </body>
 </html>
