@@ -1,31 +1,17 @@
-<!-- ============================= -->
-<!-- 🎨 css/style.css -->
-<!-- ============================= -->
-
-
 body {
-font-family: Arial, sans-serif;
-background: #f5f5f5;
-padding: 40px;
+  font-family: Arial, sans-serif;
+  padding: 40px;
+  max-width: 400px;
+  margin: auto;
 }
 
-
-header {
-text-align: center;
+label {
+  display: block;
+  margin-top: 15px;
 }
 
-
-input, select, button {
-display: block;
-width: 100%;
-margin-bottom: 12px;
-padding: 10px;
-}
-
-
-.btn {
-background: black;
-color: white;
-border: none;
-cursor: pointer;
+select, input, button {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
 }
