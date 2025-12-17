@@ -2,8 +2,12 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <title>Agendamento</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Agende seu horário</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="./style.css" />
+
+  <!-- Supabase JS v2 -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
@@ -11,19 +15,26 @@
   <h1>Agende seu horário</h1>
 
   <label>Profissional</label>
-  <select id="profissional"></select>
+  <select id="profissional">
+    <option value="">Selecione</option>
+  </select>
 
   <label>Serviço</label>
-  <select id="servico"></select>
+  <select id="servico">
+    <option value="">Selecione</option>
+  </select>
 
   <label>Data</label>
   <input type="date" id="data" />
 
   <label>Horário</label>
-  <select id="horario"></select>
+  <select id="horario">
+    <option value="">Selecione</option>
+  </select>
 
   <button onclick="agendar()">Confirmar Agendamento</button>
 
-  <script src="app.js"></script>
+  <!-- App JS -->
+  <script src="./app.js"></script>
 </body>
 </html>
