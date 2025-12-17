@@ -5,7 +5,7 @@ mercadopago.configure({
 });
 
 export default async function handler(req, res) {
-  const { plano } = req.body;
+  const { plano, perfil_id } = req.body;
 
   const valores = {
     pro: 39,
@@ -15,14 +15,19 @@ export default async function handler(req, res) {
   const preference = {
     items: [
       {
-        title: `Plano ${plano}`,
+        title: `Plano ${plano} - TimelyPro`,
         quantity: 1,
         unit_price: valores[plano]
       }
     ],
+    metadata: {
+      plano,
+      perfil_id
+    },
+    notification_url: "https://agenda-online-sandy.vercel.app//api/webhook-mp",
     back_urls: {
-      success: "https://seusite.vercel.app/dashboard.html",
-      failure: "https://seusite.vercel.app/planos.html"
+      success: "https://agenda-online-sandy.vercel.app//dashboard.html",
+      failure: "https://agenda-online-sandy.vercel.app//planos.html"
     },
     auto_return: "approved"
   };
