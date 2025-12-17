@@ -4,114 +4,55 @@
   <meta charset="UTF-8" />
   <title>Planos | TimelyPro</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="images/timelypro-favicon.png" />
-
-  <!-- Supabase SDK -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
-<body class="plans-page">
+<body>
 
-  <header class="plans-header">
-    <a href="index.html">← Voltar</a>
-    <h1>Escolha seu plano</h1>
-    <p>Comece grátis e evolua conforme seu negócio cresce</p>
-  </header>
+<h1>Escolha seu plano</h1>
 
-  <main class="plans-container">
+<div class="plans">
 
-    <!-- FREE -->
-    <div class="plan-card free">
-      <h2>Free</h2>
-      <p class="price">R$ 0,00</p>
+  <div class="plan-card">
+    <h2>Free</h2>
+    <p>R$ 0,00</p>
+    <ul>
+      <li>✔ Agenda básica</li>
+      <li>❌ Relatórios</li>
+      <li>❌ Financeiro</li>
+    </ul>
+    <a href="login.html" class="btn-secondary">Começar grátis</a>
+  </div>
 
-      <ul>
-        <li>✔ Até 30 agendamentos / mês</li>
-        <li>✔ 1 profissional</li>
-        <li>✔ 1 serviço</li>
-        <li>✔ Agenda básica</li>
-        <li>✔ Cadastro de clientes</li>
-        <li class="disabled">✖ Relatórios</li>
-        <li class="disabled">✖ Financeiro</li>
-      </ul>
+  <div class="plan-card highlight">
+    <h2>Pro</h2>
+    <p>R$ 39,00 / mês</p>
+    <ul>
+      <li>✔ Agenda completa</li>
+      <li>✔ Relatórios</li>
+      <li>❌ Financeiro</li>
+    </ul>
+    <button onclick="assinar('pro')" class="btn-primary">
+      Assinar Pro
+    </button>
+  </div>
 
-      <button onclick="selectPlan('free')">
-        Começar grátis
-      </button>
-    </div>
+  <div class="plan-card">
+    <h2>Premium</h2>
+    <p>R$ 79,00 / mês</p>
+    <ul>
+      <li>✔ Tudo do Pro</li>
+      <li>✔ Financeiro</li>
+      <li>✔ WhatsApp automático</li>
+    </ul>
+    <button onclick="assinar('premium')" class="btn-primary">
+      Assinar Premium
+    </button>
+  </div>
 
-    <!-- PRO -->
-    <div class="plan-card pro">
-      <h2>Pro</h2>
-      <p class="price">R$ 29,90 / mês</p>
+</div>
 
-      <ul>
-        <li>✔ Até 300 agendamentos / mês</li>
-        <li>✔ Até 3 profissionais</li>
-        <li>✔ Serviços ilimitados</li>
-        <li>✔ Relatório mensal</li>
-        <li>✔ Histórico de clientes</li>
-        <li>✔ Bloqueio de horários</li>
-        <li class="disabled">✖ Financeiro avançado</li>
-      </ul>
-
-      <button class="highlight" onclick="selectPlan('pro')">
-        Assinar Pro
-      </button>
-    </div>
-
-    <!-- PREMIUM -->
-    <div class="plan-card premium">
-      <h2>Premium</h2>
-      <p class="price">R$ 59,90 / mês</p>
-
-      <ul>
-        <li>✔ Agendamentos ilimitados</li>
-        <li>✔ Profissionais ilimitados</li>
-        <li>✔ Relatórios avançados</li>
-        <li>✔ Controle financeiro</li>
-        <li>✔ Integração WhatsApp</li>
-        <li>✔ Recursos exclusivos</li>
-        <li>✔ Prioridade máxima</li>
-      </ul>
-
-      <button onclick="selectPlan('premium')">
-        Assinar Premium
-      </button>
-    </div>
-
-  </main>
-
-  <footer class="plans-footer">
-    © 2025 TimelyPro
-  </footer>
-
-  <script src="auth.js"></script>
-
-  <script>
-    async function selectPlan(plan) {
-      // Garante que o usuário está logado
-      await requireAuth();
-
-      // Salva escolha local (temporário até webhook)
-      localStorage.setItem("selected_plan", plan);
-
-      if (plan === "free") {
-        alert("Plano Free ativado!");
-        window.location.href = "dashboard.html";
-      } else {
-        alert(
-          "Você será redirecionado para o pagamento do plano " +
-          plan.toUpperCase()
-        );
-
-        // Próxima fase: checkout Mercado Pago
-        // window.location.href = "checkout.html";
-      }
-    }
-  </script>
+<script src="checkout.js"></script>
 
 </body>
 </html>
