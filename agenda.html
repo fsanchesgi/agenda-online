@@ -28,6 +28,9 @@
     <input type="datetime-local" id="datahora" required />
 
     <button onclick="agendar()" class="btn-primary">Agendar</button>
+
+    <p>Ou agende pelo WhatsApp:</p>
+    <a id="whatsapp-link" target="_blank">Agendar pelo WhatsApp</a>
   </section>
 </main>
 
@@ -42,6 +45,7 @@ const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 // Captura o slug do estabelecimento na URL
 const slug = new URLSearchParams(window.location.search).get("slug");
 let estabelecimentoId;
+let estabelecimentoNome;
 
 // Carrega dados do estabelecimento e profissionais
 async function carregarEstabelecimento() {
@@ -57,6 +61,12 @@ async function carregarEstabelecimento() {
   }
 
   estabelecimentoId = estab.id;
+  estabelecimentoNome = estab.nome;
+
+  // Atualiza link do WhatsApp dinamicamente
+  const whatsappLink = document.getElementById("whatsapp-link");
+  whatsappLink.href = `https://wa.me/55NUMERODACLIENTE?text=Olá! Quero agendar um horário no ${encodeURIComponent(estab.nome)}`;
+  whatsappLink.textContent = "Agendar pelo WhatsApp";
 
   // Carrega profissionais ativos
   const { data: profs, error: errProfs } = await supabaseClient
