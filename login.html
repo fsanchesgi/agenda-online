@@ -2,19 +2,32 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Login do Profissional</title>
-
+  <title>Login Profissional</title>
+  <link rel="stylesheet" href="/style.css">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
+<header>
+  <div class="logo">Agenda<span>Online</span></div>
+</header>
+
+<main class="container">
   <h2>Login do Profissional</h2>
 
-  <input id="email" type="email" placeholder="Email">
-  <input id="password" type="password" placeholder="Senha">
+  <div class="form-group">
+    <label>Email</label>
+    <input id="email" type="email">
+  </div>
+
+  <div class="form-group">
+    <label>Senha</label>
+    <input id="password" type="password">
+  </div>
 
   <button onclick="login()">Entrar</button>
+</main>
 
-  <script src="/login.js"></script>
+<script src="/login.js"></script>
 </body>
 </html>
