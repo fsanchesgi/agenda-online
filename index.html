@@ -5,9 +5,9 @@
   <title>Agende seu horário</title>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="/style.css">
 
-  <!-- Supabase JS v2 -->
+  <!-- Supabase CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
@@ -15,26 +15,20 @@
   <h1>Agende seu horário</h1>
 
   <label>Profissional</label>
-  <select id="profissional">
-    <option value="">Selecione</option>
-  </select>
+  <select id="profissional"></select>
 
   <label>Serviço</label>
-  <select id="servico">
-    <option value="">Selecione</option>
-  </select>
+  <select id="servico"></select>
 
   <label>Data</label>
-  <input type="date" id="data" />
+  <input type="date" id="data">
 
   <label>Horário</label>
-  <select id="horario">
-    <option value="">Selecione</option>
-  </select>
+  <select id="horario"></select>
 
   <button onclick="agendar()">Confirmar Agendamento</button>
 
-  <!-- App JS -->
-  <script src="./app.js"></script>
+  <!-- ⚠️ APENAS ESTE SCRIPT -->
+  <script src="/app.js"></script>
 </body>
 </html>
