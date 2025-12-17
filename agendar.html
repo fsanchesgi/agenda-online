@@ -2,47 +2,33 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Agendar | TimelyPro</title>
-  <link rel="icon" type="image/png" href="timelypro-favicon.png">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <img src="timelypro-logo.png" alt="TimelyPro" class="logo">
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="planos.html">Planos</a>
-      <a href="login.html">Login</a>
-    </nav>
-  </header>
 
-  <section class="agendamento">
-    <h1>Agende seu horário</h1>
-    <form id="formAgendamento">
-      <label>Profissional</label>
-      <select id="profissional"></select>
+<header class="navbar">
+  <img src="images/timelypro-logo.png" class="logo">
+  <nav>
+    <a href="index.html">Início</a>
+    <a href="planos.html">Planos</a>
+    <a href="login.html">Login</a>
+  </nav>
+</header>
 
-      <label>Serviço</label>
-      <select id="servico"></select>
+<section class="container">
+  <h2>Agende seu horário</h2>
 
-      <label>Data</label>
-      <input type="date" id="data">
+  <form id="form-agendamento">
+    <input type="text" id="nome_cliente" placeholder="Seu nome" required>
+    <select id="profissional"></select>
+    <select id="servico"></select>
+    <input type="date" id="data">
+    <select id="horario"></select>
+    <button type="submit" class="btn-primary">Confirmar agendamento</button>
+  </form>
+</section>
 
-      <label>Horário</label>
-      <select id="horario"></select>
-
-      <label>Nome do Cliente</label>
-      <input type="text" id="cliente_nome" required>
-
-      <button type="submit" class="btn">Confirmar Agendamento</button>
-    </form>
-  </section>
-
-  <footer>
-    <p>&copy; 2025 TimelyPro. Todos os direitos reservados.</p>
-  </footer>
-
-  <script src="app.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
