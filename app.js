@@ -1,72 +1,47 @@
-// 🔐 SUPABASE CONFIG
 const SUPABASE_URL = "https://uqwbduinwugaqexsvkxc.supabase.co";
-
 const SUPABASE_ANON_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVxd2JkdWlud3VnYXFleHN2a3hjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU3MTk5MjMsImV4cCI6MjA4MTI5NTkyM30._GzXlkNAvqbevYjmi-crhvSKGQQfX3yjzTWT5PTvIxE";
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVxd2JkdWlud3VnYXFleHN2a3hjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU3MTk5MjMsImV4cCI6MjA4MTI5NTkyM30._GzXlkNAvqbevYjmi-crhvSKGQQfX3yjzTWT5PTvIxE";
 
-// ⚠️ NOME DIFERENTE
 const supabaseClient = window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_ANON_KEY
 );
 
-// 🎯 ELEMENTOS
-const profissionalSelect = document.getElementById('profissional');
-const servicoSelect = document.getElementById('servico');
-const horarioSelect = document.getElementById('horario');
-const dataInput = document.getElementById('data');
+const profissionalSelect = document.getElementById("profissional");
+const servicoSelect = document.getElementById("servico");
+const dataInput = document.getElementById("data");
+const horarioSelect = document.getElementById("horario");
 
-// 📥 PROFISSIONAIS
 async function carregarProfissionais() {
-  const { data, error } = await supabaseClient
-    .from('profissionais')
-    .select('*');
-
-  if (error) {
-    console.error(error);
-    return;
-  }
-
+  const { data } = await supabaseClient.from("profissionais").select("*");
   profissionalSelect.innerHTML = '<option value="">Selecione</option>';
   data.forEach(p => {
-    profissionalSelect.innerHTML +=
-      `<option value="${p.id}">${p.nome}</option>`;
+    profissionalSelect.innerHTML += `<option value="${p.id}">${p.nome}</option>`;
   });
 }
 
-// 📥 SERVIÇOS
 async function carregarServicos() {
-  const { data, error } = await supabaseClient
-    .from('servicos')
-    .select('*');
-
-  if (error) {
-    console.error(error);
-    return;
-  }
-
+  const { data } = await supabaseClient.from("servicos").select("*");
   servicoSelect.innerHTML = '<option value="">Selecione</option>';
   data.forEach(s => {
     servicoSelect.innerHTML +=
-      `<option value="${s.id}" data-duracao="${s.duracao_minutos}">
-        ${s.nome}
-      </option>`;
+      `<option value="${s.id}" data-duracao="${s.duracao_minutos}">${s.nome}</option>`;
   });
 }
 
-// ⏰ HORÁRIOS
 async function carregarHorarios() {
   horarioSelect.innerHTML = '<option value="">Selecione</option>';
 
   const profissionalId = profissionalSelect.value;
   const data = dataInput.value;
   const servico = servicoSelect.selectedOptions[0];
+
   if (!profissionalId || !data || !servico) return;
 
   const duracao = servico.dataset.duracao;
 
-  const { data: horarios, error } = await supabaseClient.rpc(
-    'horarios_disponiveis',
+  const { data: horarios } = await supabaseClient.rpc(
+    "horarios_disponiveis",
     {
       p_profissional_id: profissionalId,
       p_data: data,
@@ -74,53 +49,26 @@ async function carregarHorarios() {
     }
   );
 
-  if (error) {
-    console.error(error);
-    return;
-  }
-
   horarios.forEach(h => {
-    horarioSelect.innerHTML +=
-      `<option value="${h.horario}">${h.horario}</option>`;
+    horarioSelect.innerHTML += `<option value="${h.horario}">${h.horario}</option>`;
   });
 }
 
-// 📅 AGENDAR
 async function agendar() {
-  const profissionalId = profissionalSelect.value;
-  const servicoId = servicoSelect.value;
-  const data = dataInput.value;
-  const horario = horarioSelect.value;
+  const { error } = await supabaseClient.from("agendamentos").insert([{
+    profissional_id: profissionalSelect.value,
+    servico_id: servicoSelect.value,
+    cliente_nome: "Cliente Online",
+    data_hora: `${dataInput.value} ${horarioSelect.value}`
+  }]);
 
-  if (!profissionalId || !servicoId || !data || !horario) {
-    alert('Preencha todos os campos');
-    return;
-  }
-
-  const dataHora = `${data} ${horario}`;
-
-  const { error } = await supabaseClient
-    .from('agendamentos')
-    .insert([{
-      profissional_id: profissionalId,
-      servico_id: servicoId,
-      cliente_nome: 'Cliente Teste',
-      data_hora: dataHora
-    }]);
-
-  if (error) {
-    alert(error.message);
-  } else {
-    alert('Agendamento confirmado!');
-    carregarHorarios();
-  }
+  if (error) alert(error.message);
+  else alert("Agendamento confirmado!");
 }
 
-// 🔁 EVENTOS
-profissionalSelect.addEventListener('change', carregarHorarios);
-servicoSelect.addEventListener('change', carregarHorarios);
-dataInput.addEventListener('change', carregarHorarios);
+profissionalSelect.onchange = carregarHorarios;
+servicoSelect.onchange = carregarHorarios;
+dataInput.onchange = carregarHorarios;
 
-// 🚀 INIT
 carregarProfissionais();
 carregarServicos();
