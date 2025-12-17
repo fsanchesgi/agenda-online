@@ -1,92 +1,41 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <title>Dashboard | TimelyPro</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
+<section>
+  <h2>Meus Estabelecimentos</h2>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-</head>
+  <div id="lista-estabelecimentos"></div>
 
-<body class="dashboard-page">
+  <h3>Novo Estabelecimento</h3>
+  <input id="nome" placeholder="Nome" />
+  <input id="cidade" placeholder="Cidade" />
+  <input id="estado" placeholder="Estado (SP)" />
+  <textarea id="descricao" placeholder="Descrição"></textarea>
 
-<header class="dashboard-header">
-  <h1>Dashboard TimelyPro</h1>
-  <button onclick="logout()">Sair</button>
-</header>
+  <button onclick="criarEstabelecimento()">Criar</button>
+</section>
 
-<main id="dashboard-content">
-  <p>Carregando...</p>
-</main>
-
-<script src="auth.js"></script>
+<script src="estabelecimento.js"></script>
 
 <script>
-async function loadDashboard() {
-  const session = await requireAuth();
-  const userId = session.user.id;
+async function carregarEstabelecimentos() {
+  const session = await supabaseClient.auth.getSession();
+  const userId = session.data.session.user.id;
 
-  const { data, error } = await supabaseClient
-    .from("assinaturas")
-    .select(`
-      status,
-      inicio,
-      fim,
-      plans (
-        name,
-        features
-      )
-    `)
-    .eq("perfil_id", userId)
-    .single();
+  const { data } = await supabaseClient
+    .from("estabelecimentos")
+    .select("*")
+    .eq("owner_id", userId);
 
-  const container = document.getElementById("dashboard-content");
+  const container = document.getElementById("lista-estabelecimentos");
+  container.innerHTML = "";
 
-  if (error || !data) {
-    container.innerHTML = "Erro ao carregar assinatura.";
-    return;
-  }
-
-  const agora = new Date();
-  const fim = data.fim ? new Date(data.fim) : null;
-  const plano = data.plans.name;
-
-  /* ========= PLANO EXPIRADO ========= */
-  if (fim && fim < agora) {
-    container.innerHTML = `
-      <h2>Plano expirado</h2>
-      <p>Seu plano venceu. Faça upgrade para continuar.</p>
-      <a href="planos.html" class="btn-primary">Renovar plano</a>
+  data.forEach(e => {
+    container.innerHTML += `
+      <div class="card">
+        <strong>${e.nome}</strong><br/>
+        ${e.cidade} - ${e.estado}
+      </div>
     `;
-    return;
-  }
+  });
+}
 
-  /* ========= FREE ========= */
-  if (plano === "free") {
-    container.innerHTML = `
-      <h2>Plano Free</h2>
-      <button>📅 Criar agendamento</button>
-      <div class="locked">🔒 Relatórios</div>
-      <div class="locked">🔒 Financeiro</div>
-      <a href="planos.html">Fazer upgrade</a>
-    `;
-  }
-
-  /* ========= PRO ========= */
-  if (plano === "pro") {
-    container.innerHTML = `
-      <h2>Plano Pro</h2>
-      <button>📅 Criar agendamento</button>
-      <button>📊 Relatórios</button>
-      <div class="locked">🔒 Financeiro</div>
-      <a href="planos.html">Upgrade Premium</a>
-    `;
-  }
-
-  /* ========= PREMIUM ========= */
-  if (plano === "premium") {
-    container.innerHTML = `
-      <h2>Plano Premium</h2>
-      <button>📅 Criar agendamento</button>
-      <button>📊 Relatórios</butto
+carregarEstabelecimentos();
+</script>
