@@ -1,57 +1,48 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Agendamento | Agenda Online</title>
-  <link rel="stylesheet" href="/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agendar | TimelyPro</title>
+  <link rel="icon" type="image/png" href="timelypro-favicon.png">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-  <div class="logo">Agenda<span>Online</span></div>
-  <nav>
-    <a href="/index.html">Home</a>
-    <a href="/agendar.html">Agendar</a>
-    <a href="/planos.html">Planos</a>
-    <a href="/login.html">Login</a>
-  </nav>
-</header>
+  <header>
+    <img src="timelypro-logo.png" alt="TimelyPro" class="logo">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="planos.html">Planos</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
 
-<main class="container">
-  <h1>Agende seu horário</h1>
+  <section class="agendamento">
+    <h1>Agende seu horário</h1>
+    <form id="formAgendamento">
+      <label>Profissional</label>
+      <select id="profissional"></select>
 
-  <div class="form-group">
-    <label for="cliente_nome">Seu nome</label>
-    <input type="text" id="cliente_nome" placeholder="Digite seu nome">
-  </div>
+      <label>Serviço</label>
+      <select id="servico"></select>
 
-  <div class="form-group">
-    <label for="profissional">Profissional</label>
-    <select id="profissional"></select>
-  </div>
+      <label>Data</label>
+      <input type="date" id="data">
 
-  <div class="form-group">
-    <label for="servico">Serviço</label>
-    <select id="servico"></select>
-  </div>
+      <label>Horário</label>
+      <select id="horario"></select>
 
-  <div class="form-group">
-    <label for="data">Data</label>
-    <input type="date" id="data">
-  </div>
+      <label>Nome do Cliente</label>
+      <input type="text" id="cliente_nome" required>
 
-  <div class="form-group">
-    <label for="horario">Horário</label>
-    <select id="horario"></select>
-  </div>
+      <button type="submit" class="btn">Confirmar Agendamento</button>
+    </form>
+  </section>
 
-  <button onclick="agendar()" class="btn-cta">Confirmar Agendamento</button>
-  <p><a href="/index.html">Voltar para Home</a></p>
-</main>
+  <footer>
+    <p>&copy; 2025 TimelyPro. Todos os direitos reservados.</p>
+  </footer>
 
-<footer>
-  <p>© Agenda Online - Todos os direitos reservados</p>
-</footer>
-
-<script src="/app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
