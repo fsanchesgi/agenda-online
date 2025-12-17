@@ -1,12 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
 <header>
-  <strong>Agenda Online</strong>
+  <div class="logo">Agenda<span>Online</span></div>
   <nav>
-    <a href="/">Novo agendamento</a>
     <a href="#" onclick="logout()">Sair</a>
   </nav>
 </header>
 
-<div class="container">
+<main class="container">
   <h2>Minha Agenda</h2>
   <ul id="agenda" class="agenda-list"></ul>
-</div>
+</main>
+
+<script src="/dashboard.js"></script>
+</body>
+</html>
