@@ -4,11 +4,8 @@
   <meta charset="UTF-8" />
   <title>Dashboard | TimelyPro</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <link rel="icon" type="image/png" href="images/timelypro-favicon.png" />
   <link rel="stylesheet" href="style.css" />
 
-  <!-- Supabase SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
@@ -16,51 +13,88 @@
 
   <header class="dashboard-header">
     <h1>Dashboard TimelyPro</h1>
-    <button id="logout-btn">Sair</button>
+    <button onclick="logout()">Sair</button>
   </header>
 
-  <main class="dashboard-content">
-    <p>Bem-vindo ao TimelyPro 🚀</p>
+  <main id="dashboard-content">
+    <p>Carregando seu plano...</p>
   </main>
 
+  <script src="auth.js"></script>
+
   <script>
-    // ================================
-    // SUPABASE CLIENT
-    // ================================
-    const SUPABASE_URL = "https://uqwbduinwugaqexsvkxc.supabase.co";
-    const SUPABASE_ANON_KEY =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVxd2JkdWlud3VnYXFleHN2a3hjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU3MTk5MjMsImV4cCI6MjA4MTI5NTkyM30._GzXlkNAvqbevYjmi-crhvSKGQQfX3yjzTWT5PTvIxE";
+    async function loadDashboard() {
+      const session = await requireAuth();
+      const userId = session.user.id;
 
-    const supabase = window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_ANON_KEY
-    );
+      const { data, error } = await supabaseClient
+        .from("assinaturas")
+        .select(`
+          status,
+          plans (
+            name,
+            price,
+            features,
+            max_appointments,
+            max_professionals
+          )
+        `)
+        .eq("perfil_id", userId)
+        .eq("status", "ativa")
+        .single();
 
-    // ================================
-    // SESSION VALIDATION (CORRETO)
-    // ================================
-    async function checkSession() {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
-
-      if (!session) {
-        window.location.href = "login.html";
+      if (error || !data) {
+        document.getElementById("dashboard-content").innerHTML =
+          "Nenhum plano ativo encontrado.";
         return;
       }
 
-      console.log("Usuário autenticado:", session.user.email);
+      const plano = data.plans.name;
+      const container = document.getElementById("dashboard-content");
+
+      /* ========= FREE ========= */
+      if (plano === "free") {
+        container.innerHTML = `
+          <h2>Plano Free</h2>
+          <p>Recursos básicos ativos</p>
+
+          <button>📅 Criar agendamento</button>
+
+          <div class="locked">🔒 Relatórios (Pro)</div>
+          <div class="locked">🔒 Financeiro (Premium)</div>
+
+          <a href="planos.html">Fazer upgrade</a>
+        `;
+      }
+
+      /* ========= PRO ========= */
+      if (plano === "pro") {
+        container.innerHTML = `
+          <h2>Plano Pro</h2>
+
+          <button>📅 Criar agendamento</button>
+          <button>📊 Relatórios</button>
+
+          <div class="locked">🔒 Financeiro (Premium)</div>
+
+          <a href="planos.html">Upgrade para Premium</a>
+        `;
+      }
+
+      /* ========= PREMIUM ========= */
+      if (plano === "premium") {
+        container.innerHTML = `
+          <h2>Plano Premium</h2>
+
+          <button>📅 Criar agendamento</button>
+          <button>📊 Relatórios avançados</button>
+          <button>💰 Financeiro</button>
+          <button>💬 WhatsApp automático</button>
+        `;
+      }
     }
 
-    checkSession();
-
-    // ================================
-    // LOGOUT
-    // ================================
-    document.getElementById("logout-btn").addEventListener("click", async () => {
-      await supabase.auth.signOut();
-      window.location.href = "login.html";
-    });
+    loadDashboard();
   </script>
 
 </body>
