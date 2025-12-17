@@ -11,91 +11,82 @@
 
 <body class="dashboard-page">
 
-  <header class="dashboard-header">
-    <h1>Dashboard TimelyPro</h1>
-    <button onclick="logout()">Sair</button>
-  </header>
+<header class="dashboard-header">
+  <h1>Dashboard TimelyPro</h1>
+  <button onclick="logout()">Sair</button>
+</header>
 
-  <main id="dashboard-content">
-    <p>Carregando seu plano...</p>
-  </main>
+<main id="dashboard-content">
+  <p>Carregando...</p>
+</main>
 
-  <script src="auth.js"></script>
+<script src="auth.js"></script>
 
-  <script>
-    async function loadDashboard() {
-      const session = await requireAuth();
-      const userId = session.user.id;
+<script>
+async function loadDashboard() {
+  const session = await requireAuth();
+  const userId = session.user.id;
 
-      const { data, error } = await supabaseClient
-        .from("assinaturas")
-        .select(`
-          status,
-          plans (
-            name,
-            price,
-            features,
-            max_appointments,
-            max_professionals
-          )
-        `)
-        .eq("perfil_id", userId)
-        .eq("status", "ativa")
-        .single();
+  const { data, error } = await supabaseClient
+    .from("assinaturas")
+    .select(`
+      status,
+      inicio,
+      fim,
+      plans (
+        name,
+        features
+      )
+    `)
+    .eq("perfil_id", userId)
+    .single();
 
-      if (error || !data) {
-        document.getElementById("dashboard-content").innerHTML =
-          "Nenhum plano ativo encontrado.";
-        return;
-      }
+  const container = document.getElementById("dashboard-content");
 
-      const plano = data.plans.name;
-      const container = document.getElementById("dashboard-content");
+  if (error || !data) {
+    container.innerHTML = "Erro ao carregar assinatura.";
+    return;
+  }
 
-      /* ========= FREE ========= */
-      if (plano === "free") {
-        container.innerHTML = `
-          <h2>Plano Free</h2>
-          <p>Recursos básicos ativos</p>
+  const agora = new Date();
+  const fim = data.fim ? new Date(data.fim) : null;
+  const plano = data.plans.name;
 
-          <button>📅 Criar agendamento</button>
+  /* ========= PLANO EXPIRADO ========= */
+  if (fim && fim < agora) {
+    container.innerHTML = `
+      <h2>Plano expirado</h2>
+      <p>Seu plano venceu. Faça upgrade para continuar.</p>
+      <a href="planos.html" class="btn-primary">Renovar plano</a>
+    `;
+    return;
+  }
 
-          <div class="locked">🔒 Relatórios (Pro)</div>
-          <div class="locked">🔒 Financeiro (Premium)</div>
+  /* ========= FREE ========= */
+  if (plano === "free") {
+    container.innerHTML = `
+      <h2>Plano Free</h2>
+      <button>📅 Criar agendamento</button>
+      <div class="locked">🔒 Relatórios</div>
+      <div class="locked">🔒 Financeiro</div>
+      <a href="planos.html">Fazer upgrade</a>
+    `;
+  }
 
-          <a href="planos.html">Fazer upgrade</a>
-        `;
-      }
+  /* ========= PRO ========= */
+  if (plano === "pro") {
+    container.innerHTML = `
+      <h2>Plano Pro</h2>
+      <button>📅 Criar agendamento</button>
+      <button>📊 Relatórios</button>
+      <div class="locked">🔒 Financeiro</div>
+      <a href="planos.html">Upgrade Premium</a>
+    `;
+  }
 
-      /* ========= PRO ========= */
-      if (plano === "pro") {
-        container.innerHTML = `
-          <h2>Plano Pro</h2>
-
-          <button>📅 Criar agendamento</button>
-          <button>📊 Relatórios</button>
-
-          <div class="locked">🔒 Financeiro (Premium)</div>
-
-          <a href="planos.html">Upgrade para Premium</a>
-        `;
-      }
-
-      /* ========= PREMIUM ========= */
-      if (plano === "premium") {
-        container.innerHTML = `
-          <h2>Plano Premium</h2>
-
-          <button>📅 Criar agendamento</button>
-          <button>📊 Relatórios avançados</button>
-          <button>💰 Financeiro</button>
-          <button>💬 WhatsApp automático</button>
-        `;
-      }
-    }
-
-    loadDashboard();
-  </script>
-
-</body>
-</html>
+  /* ========= PREMIUM ========= */
+  if (plano === "premium") {
+    container.innerHTML = `
+      <h2>Plano Premium</h2>
+      <button>📅 Criar agendamento</button>
+      <button>📊 Relatórios</butto
