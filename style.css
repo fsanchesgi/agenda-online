@@ -1,79 +1,135 @@
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Inter,Arial,sans-serif;
-  background:#0b0f14;
-  color:#fff;
+* {
+  box-sizing: border-box;
 }
 
-.navbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:20px 40px;
+body {
+  margin: 0;
+  font-family: Inter, Arial, sans-serif;
+  background: #0b0f14;
+  color: #fff;
 }
 
-.logo{height:42px}
-
-nav a{
-  color:#fff;
-  margin-left:20px;
-  text-decoration:none;
+/* ===== HEADER / LOGO ===== */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 40px;
 }
 
-.btn-nav,.btn-primary{
-  background:#00ff88;
-  color:#000;
-  padding:12px 22px;
-  border-radius:8px;
-  text-decoration:none;
-  font-weight:600;
+.logo {
+  height: 42px;        /* PADRÃO GLOBAL */
+  max-height: 42px;
+  width: auto;
 }
 
-.hero{
-  height:85vh;
-  background-size:cover;
-  background-position:center;
-  display:flex;
-  align-items:center;
+.logo-login {
+  height: 48px;
+  margin-bottom: 20px;
 }
 
-.hero-content{
-  max-width:600px;
-  padding:60px;
+/* ===== NAV ===== */
+nav a {
+  color: #fff;
+  margin-left: 20px;
+  text-decoration: none;
 }
 
-.carousel{
-  overflow:hidden;
-  padding:60px 0;
+.btn-nav,
+.btn-primary {
+  background: #00ff88;
+  color: #000;
+  padding: 12px 22px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
 }
 
-.carousel-track{
-  display:flex;
-  gap:40px;
-  justify-content:center;
+/* ===== HERO ===== */
+.hero {
+  height: 85vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
 }
 
-.carousel img{
-  width:80%;
-  max-width:900px;
-  border-radius:18px;
+.hero-content {
+  max-width: 600px;
+  padding: 60px;
 }
 
-.container{
-  padding:60px;
+/* ===== CAROUSEL ===== */
+.carousel {
+  overflow: hidden;
+  padding: 60px 0;
 }
 
-.login-box{
-  max-width:400px;
-  margin:120px auto;
-  text-align:center;
+.carousel-track {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
 }
 
-input,select,button{
-  width:100%;
-  padding:14px;
-  margin-top:12px;
-  border-radius:8px;
-  border:none;
+.carousel img {
+  width: 80%;
+  max-width: 900px;
+  border-radius: 18px;
+}
+
+/* ===== CONTAINER ===== */
+.container {
+  padding: 60px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+/* ===== FORMS ===== */
+input,
+select,
+button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 14px;
+  border-radius: 8px;
+  border: none;
+  font-size: 15px;
+}
+
+input::placeholder,
+select {
+  color: #888;
+}
+
+/* ===== LOGIN ===== */
+.login-box {
+  max-width: 400px;
+  margin: 120px auto;
+  text-align: center;
+}
+
+/* ===== PLANOS ===== */
+.plan-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.plan-card {
+  background: #121821;
+  border-radius: 16px;
+  padding: 30px;
+  text-align: center;
+}
+
+.plan-card h3 {
+  margin-bottom: 10px;
+}
+
+.plan-price {
+  font-size: 32px;
+  color: #00ff88;
+  margin: 20px 0;
 }
