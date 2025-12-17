@@ -1,34 +1,32 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8" />
-  <title>Agende seu horário</title>
+<header>
+  <strong>Agenda Online</strong>
+  <nav>
+    <a href="/login.html">Sou profissional</a>
+  </nav>
+</header>
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="/style.css">
-
-  <!-- Supabase CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-</head>
-<body>
-
+<div class="container">
   <h1>Agende seu horário</h1>
 
-  <label>Profissional</label>
-  <select id="profissional"></select>
+  <div class="form-group">
+    <label>Profissional</label>
+    <select id="profissional"></select>
+  </div>
 
-  <label>Serviço</label>
-  <select id="servico"></select>
+  <div class="form-group">
+    <label>Serviço</label>
+    <select id="servico"></select>
+  </div>
 
-  <label>Data</label>
-  <input type="date" id="data">
+  <div class="form-group">
+    <label>Data</label>
+    <input type="date" id="data">
+  </div>
 
-  <label>Horário</label>
-  <select id="horario"></select>
+  <div class="form-group">
+    <label>Horário</label>
+    <select id="horario"></select>
+  </div>
 
   <button onclick="agendar()">Confirmar Agendamento</button>
-
-  <!-- ⚠️ APENAS ESTE SCRIPT -->
-  <script src="/app.js"></script>
-</body>
-</html>
+</div>
