@@ -1,38 +1,74 @@
-/* Fonte moderna */
-body { font-family: 'Poppins', sans-serif; margin:0; background:#121212; color:#fff; }
+body {
+  margin:0;
+  font-family: 'Poppins', sans-serif;
+  background:#121212;
+  color:#fff;
+}
 
-/* Header */
-header { display:flex; justify-content:space-between; align-items:center; padding:20px 50px; background:#1f1f1f; }
-header .logo { font-size:28px; font-weight:bold; color:#00d084; }
-header nav a { color:#fff; margin-left:20px; text-decoration:none; transition:0.2s; }
-header nav a:hover { color:#00d084; }
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 30px;
+  background:#1f1f1f;
+}
 
-/* Hero */
-.hero { text-align:center; padding:100px 20px; background:#1f1f1f; }
-.hero h1 { font-size:48px; margin-bottom:20px; }
-.hero p { font-size:20px; margin-bottom:30px; color:#ccc; }
-.btn-cta { background:#00d084; color:#fff; padding:15px 30px; border:none; border-radius:6px; font-size:18px; cursor:pointer; transition:0.2s; }
-.btn-cta:hover { background:#00b873; }
+header .logo{
+  height:50px;
+}
 
-/* Benefits & Cards */
-.benefits, .planos { display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin:50px 0; }
-.card, .plano { background:#1f1f1f; padding:30px; border-radius:10px; width:300px; box-shadow:0 5px 15px rgba(0,0,0,0.3); text-align:center; }
-.plano.destaque { border:2px solid #00d084; }
-.card h3, .plano h2 { color:#00d084; margin-bottom:15px; }
+nav a, nav button{
+  margin-left:15px;
+  text-decoration:none;
+  color:#00d084;
+  font-weight:bold;
+  border:none;
+  background:none;
+  cursor:pointer;
+}
 
-/* Forms */
-.container { max-width:1000px; margin:50px auto; padding:0 20px; }
-.form-group { margin-bottom:15px; text-align:left; }
-label { display:block; margin-bottom:5px; }
-input, select { width:100%; padding:12px; border-radius:6px; border:none; outline:none; }
+.btn{
+  padding:10px 20px;
+  background:#00d084;
+  border:none;
+  color:#fff;
+  cursor:pointer;
+  border-radius:5px;
+  transition:0.3s;
+}
+.btn:hover{
+  background:#00b36e;
+}
 
-/* Buttons */
-button, .btn-voltar { display:inline-block; margin-top:10px; text-decoration:none; text-align:center; cursor:pointer; }
-.logout-btn { background:#ff4b5c; border:none; padding:10px 20px; border-radius:6px; color:#fff; cursor:pointer; }
-.logout-btn:hover { background:#e03b4c; }
-
-/* Footer */
-footer { text-align:center; padding:30px 0; color:#777; font-size:14px; }
-
-/* Responsive */
-@media(max-width:768px){ .benefits, .planos { flex-direction:column; align-items:center; } .hero h1 { font-size:36px; } }
+.hero{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:50px 30px;
+  background:#1a1a1a;
+}
+.hero-content{
+  max-width:500px;
+}
+.carousel img{
+  width:300px;
+  margin:0 10px;
+  border-radius:10px;
+}
+.cards-planos{
+  display:flex;
+  justify-content:space-around;
+  padding:30px;
+}
+.card-plano{
+  background:#1f1f1f;
+  padding:20px;
+  border-radius:10px;
+  width:200px;
+  text-align:center;
+  box-shadow:0 4px 8px rgba(0,0,0,0.3);
+  transition:0.3s;
+}
+.card-plano:hover{
+  transform:translateY(-5px);
+}
