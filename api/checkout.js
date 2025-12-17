@@ -13,28 +13,31 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "Token não configurado" });
   }
 
-  const response = await fetch("https://api.mercadopago.com/checkout/preferences", {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${MP_ACCESS_TOKEN}`,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      items: [
-        {
-          title: `Plano ${planoNome}`,
-          quantity: 1,
-          unit_price: preco,
-          currency_id: "BRL"
-        }
-      ],
-      back_urls: {
-        success: `${req.headers.origin}/planos.html?success=true`,
-        failure: `${req.headers.origin}/planos.html?success=false`
+  const response = await fetch(
+    "https://api.mercadopago.com/checkout/preferences",
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${MP_ACCESS_TOKEN}`,
+        "Content-Type": "application/json"
       },
-      auto_return: "approved"
-    })
-  });
+      body: JSON.stringify({
+        items: [
+          {
+            title: `Plano ${planoNome}`,
+            quantity: 1,
+            unit_price: preco,
+            currency_id: "BRL"
+          }
+        ],
+        back_urls: {
+          success: `${req.headers.origin}/planos.html?success=true`,
+          failure: `${req.headers.origin}/planos.html?success=false`
+        },
+        auto_return: "approved"
+      })
+    }
+  );
 
   const data = await response.json();
   res.status(200).json(data);
