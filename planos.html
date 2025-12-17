@@ -1,64 +1,42 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Planos | Agenda Online</title>
-  <link rel="stylesheet" href="/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Planos | TimelyPro</title>
+  <link rel="icon" type="image/png" href="timelypro-favicon.png">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-  <div class="logo">Agenda<span>Online</span></div>
-  <nav>
-    <a href="/index.html">Home</a>
-    <a href="/agendar.html">Agendar</a>
-    <a href="/planos.html">Planos</a>
-    <a href="/login.html">Login</a>
-  </nav>
-</header>
+  <header>
+    <img src="timelypro-logo.png" alt="TimelyPro" class="logo">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="agendar.html">Agendar</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
 
-<main class="container">
-  <h1>Escolha seu plano</h1>
-
-  <div class="planos">
-    <div class="plano">
-      <h2>FREE</h2>
-      <p class="preco">R$ 0</p>
-      <ul>
-        <li>1 Profissional</li>
-        <li>10 Agendamentos/mês</li>
-      </ul>
-      <button disabled>Plano atual</button>
+  <section class="planos">
+    <h1>Escolha seu plano</h1>
+    <div class="cards-planos">
+      <div class="card-plano">
+        <h2>Plano Básico</h2>
+        <p>R$19,90/mês</p>
+        <button onclick="gerarCheckout('Básico',19.90)">Assinar</button>
+      </div>
+      <div class="card-plano">
+        <h2>Plano Pro</h2>
+        <p>R$39,90/mês</p>
+        <button onclick="gerarCheckout('Pro',39.90)">Assinar</button>
+      </div>
     </div>
+  </section>
 
-    <div class="plano destaque">
-      <h2>PRO</h2>
-      <p class="preco">R$ 39,90/mês</p>
-      <ul>
-        <li>Profissionais ilimitados</li>
-        <li>Agendamentos ilimitados</li>
-        <li>Dashboard completo</li>
-      </ul>
-      <button onclick="gerarCheckout('PRO', 39.90, 'perfil-id-do-usuario')">Quero esse plano</button>
-    </div>
+  <footer>
+    <p>&copy; 2025 TimelyPro. Todos os direitos reservados.</p>
+  </footer>
 
-    <div class="plano">
-      <h2>PREMIUM</h2>
-      <p class="preco">R$ 79,90/mês</p>
-      <ul>
-        <li>Múltiplas unidades</li>
-        <li>Relatórios avançados</li>
-      </ul>
-      <button onclick="gerarCheckout('PREMIUM', 79.90, 'perfil-id-do-usuario')">Falar com vendas</button>
-    </div>
-  </div>
-
-  <p><a href="/index.html" class="btn-voltar">Voltar para Home</a></p>
-</main>
-
-<footer>
-  <p>© Agenda Online - Todos os direitos reservados</p>
-</footer>
-
-<script src="/app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
