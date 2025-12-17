@@ -22,13 +22,9 @@ async function carregarProfissionais() {
     .select("id, nome")
     .eq("ativo", true);
 
-  if (error) {
-    console.error(error);
-    return;
-  }
+  if (error) return console.error(error);
 
-  profissionalSelect.innerHTML =
-    '<option value="">Selecione</option>';
+  profissionalSelect.innerHTML = '<option value="">Selecione</option>';
 
   data.forEach(p => {
     profissionalSelect.innerHTML +=
@@ -44,13 +40,9 @@ async function carregarServicos() {
     .from("servicos")
     .select("id, nome, duracao_minutos");
 
-  if (error) {
-    console.error(error);
-    return;
-  }
+  if (error) return console.error(error);
 
-  servicoSelect.innerHTML =
-    '<option value="">Selecione</option>';
+  servicoSelect.innerHTML = '<option value="">Selecione</option>';
 
   data.forEach(s => {
     servicoSelect.innerHTML +=
@@ -64,49 +56,61 @@ async function carregarServicos() {
    HORÁRIOS
 =========================== */
 async function carregarHorarios() {
-  horarioSelect.innerHTML =
-    '<option value="">Selecione</option>';
+  horarioSelect.innerHTML = '<option value="">Selecione</option>';
 
-  const profissionalId = profissionalSelect.value;
-  const dataSelecionada = dataInput.value;
-  const servicoOption = servicoSelect.selectedOptions[0];
+  if (
+    !profissionalSelect.value ||
+    !servicoSelect.value ||
+    !dataInput.value
+  ) return;
 
-  if (!profissionalId || !dataSelecionada || !servicoOption) {
-    return;
-  }
-
-  const duracao = parseInt(servicoOption.dataset.duracao);
+  const duracao =
+    parseInt(servicoSelect.selectedOptions[0].dataset.duracao);
 
   const { data, error } = await supabaseClient.rpc(
     "horarios_disponiveis",
     {
-      p_profissional_id: profissionalId,
-      p_data: dataSelecionada,
+      p_profissional_id: profissionalSelect.value,
+      p_data: dataInput.value,
       p_duracao_minutos: duracao
     }
   );
 
-  if (error || !data) {
-    console.error(error);
-    return;
-  }
+  if (error) return console.error(error);
 
-  data.forEach(item => {
+  data.forEach(h => {
     horarioSelect.innerHTML +=
-      `<option value="${item.horario}">
-        ${item.horario}
-      </option>`;
+      `<option value="${h.horario}">${h.horario}</option>`;
   });
 }
 
 /* ===========================
-   AGENDAR
+   AGENDAR (COM BLOQUEIO)
 =========================== */
 async function agendar() {
   const clienteNome = clienteNomeInput.value.trim();
 
   if (!clienteNome) {
     alert("Informe seu nome");
+    return;
+  }
+
+  // 🔒 VERIFICA LIMITE DO PLANO
+  const { data: podeAgendar, error: erroLimite } =
+    await supabaseClient.rpc(
+      "pode_criar_agendamento",
+      { p_profissional_id: profissionalSelect.value }
+    );
+
+  if (erroLimite) {
+    alert("Erro ao validar plano");
+    return;
+  }
+
+  if (!podeAgendar) {
+    alert(
+      "Limite do plano gratuito atingido.\nFaça upgrade para continuar."
+    );
     return;
   }
 
