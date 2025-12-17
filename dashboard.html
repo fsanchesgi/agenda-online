@@ -2,24 +2,29 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Dashboard</title>
+  <title>Dashboard | Agenda Online</title>
   <link rel="stylesheet" href="/style.css">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
-
 <header>
   <div class="logo">Agenda<span>Online</span></div>
   <nav>
-    <a href="#" onclick="logout()">Sair</a>
+    <a href="/index.html">Agendar</a>
+    <a href="/dashboard.html">Dashboard</a>
+    <a href="/planos.html">Planos</a>
   </nav>
 </header>
 
 <main class="container">
-  <h2>Minha Agenda</h2>
-  <ul id="agenda" class="agenda-list"></ul>
+  <h1>Dashboard</h1>
+  <p>Bem-vindo ao seu painel de controle.</p>
+  <div id="agendamentos"></div>
 </main>
 
-<script src="/dashboard.js"></script>
+<footer>
+  <p>© Agenda Online - Todos os direitos reservados</p>
+</footer>
+
+<script src="/app.js"></script>
 </body>
 </html>
