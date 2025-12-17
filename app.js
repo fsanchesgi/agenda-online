@@ -1,7 +1,11 @@
+// 🔐 SUPABASE CONFIG
 const SUPABASE_URL = "https://uqwbduinwugaqexsvkxc.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVxd2JkdWlud3VnYXFleHN2a3hjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU3MTk5MjMsImV4cCI6MjA4MTI5NTkyM30._GzXlkNAvqbevYjmi-crhvSKGQQfX3yjzTWT5PTvIxE";
 
-const supabase = window.supabase.createClient(
+const SUPABASE_ANON_KEY =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVxd2JkdWlud3VnYXFleHN2a3hjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU3MTk5MjMsImV4cCI6MjA4MTI5NTkyM30._GzXlkNAvqbevYjmi-crhvSKGQQfX3yjzTWT5PTvIxE";
+
+// ⚠️ NOME DIFERENTE
+const supabaseClient = window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_ANON_KEY
 );
@@ -14,7 +18,7 @@ const dataInput = document.getElementById('data');
 
 // 📥 PROFISSIONAIS
 async function carregarProfissionais() {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseClient
     .from('profissionais')
     .select('*');
 
@@ -32,7 +36,7 @@ async function carregarProfissionais() {
 
 // 📥 SERVIÇOS
 async function carregarServicos() {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseClient
     .from('servicos')
     .select('*');
 
@@ -61,7 +65,7 @@ async function carregarHorarios() {
 
   const duracao = servico.dataset.duracao;
 
-  const { data: horarios, error } = await supabase.rpc(
+  const { data: horarios, error } = await supabaseClient.rpc(
     'horarios_disponiveis',
     {
       p_profissional_id: profissionalId,
@@ -95,7 +99,7 @@ async function agendar() {
 
   const dataHora = `${data} ${horario}`;
 
-  const { error } = await supabase
+  const { error } = await supabaseClient
     .from('agendamentos')
     .insert([{
       profissional_id: profissionalId,
