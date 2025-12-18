@@ -1,69 +1,42 @@
 <!DOCTYPE html>
-<title>Planos | TimelyPro</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-
-<link rel="icon" type="image/png" href="images/timelypro-favicon.png" />
-<link rel="stylesheet" href="style.css" />
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Planos | TimelyPro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 </head>
-<body class="planos-page">
-
+<body>
 
 <header>
-<a href="index.html"><img src="images/timelypro-logo.png" class="logo" /></a>
+  <img src="images/timelypro-logo.png" class="logo">
 </header>
 
+<div class="page">
+  <h1>Escolha seu plano</h1>
 
-<main class="planos-wrapper">
+  <div class="planos">
+    <div class="plano">
+      <h2>Free</h2>
+      <p class="price">R$ 0</p>
+      <p>Agenda básica</p>
+    </div>
 
+    <div class="plano">
+      <h2>Pro</h2>
+      <p class="price">R$ 39</p>
+      <button class="btn-primary">Assinar</button>
+    </div>
 
-<div class="plano-card">
-<h2>Free</h2>
-<p class="price">R$ 0,00</p>
-<ul>
-<li>Agenda básica</li>
-<li>Até 20 agendamentos</li>
-</ul>
-<button disabled class="btn-secondary">Plano atual</button>
+    <div class="plano">
+      <h2>Premium</h2>
+      <p class="price">R$ 79</p>
+      <button class="btn-primary">Assinar</button>
+    </div>
+  </div>
 </div>
-
-
-<div class="plano-card destaque">
-<h2>Pro</h2>
-<p class="price">R$ 39,00/mês</p>
-<ul>
-<li>Agenda ilimitada</li>
-<li>WhatsApp automático</li>
-<li>Profissionais</li>
-</ul>
-<button class="btn-primary" onclick="assinar('pro')">Assinar</button>
-</div>
-
-
-<div class="plano-card">
-<h2>Premium</h2>
-<p class="price">R$ 79,00/mês</p>
-<ul>
-<li>Tudo do Pro</li>
-<li>Relatórios</li>
-<li>Página pública</li>
-</ul>
-<button class="btn-primary" onclick="assinar('premium')">Assinar</button>
-</div>
-
-
-</main>
-
 
 <footer>© 2025 TimelyPro</footer>
-
-
-<script>
-function assinar(plano) {
-window.location.href = `checkout.html?plano=${plano}`;
-}
-</script>
-
 
 </body>
 </html>
