@@ -1,33 +1,87 @@
-<section>
-  <h2>Profissionais</h2>
-
-  <div id="lista-profissionais"></div>
-
-  <h3>Novo Profissional</h3>
-  <input id="nome-prof" placeholder="Nome" />
-  <input id="especialidade" placeholder="Especialidade" />
-  <button onclick="criarProfissional(ESTABELECIMENTO_ID)">Adicionar</button>
+<!DOCTYPE html>
+<ul>
+<li>✔ Agenda básica</li>
+<li>✔ Até 20 agendamentos/mês</li>
+</ul>
 </section>
 
-<script src="profissionais.js"></script>
+
+<section id="recursos-pro" class="dashboard-card hidden">
+<h2>Plano Pro</h2>
+<ul>
+<li>✔ Agenda ilimitada</li>
+<li>✔ WhatsApp automático</li>
+<li>✔ Cadastro de profissionais</li>
+</ul>
+</section>
+
+
+<section id="recursos-premium" class="dashboard-card hidden">
+<h2>Plano Premium</h2>
+<ul>
+<li>✔ Tudo do Pro</li>
+<li>✔ Relatórios</li>
+<li>✔ Página pública do estabelecimento</li>
+</ul>
+</section>
+
+
+<a href="planos.html" class="btn-primary">Alterar plano</a>
+</main>
+
+
+<footer>© 2025 TimelyPro</footer>
+
 
 <script>
-async function carregarProfissionais(estabelecimentoId) {
-  const { data } = await supabaseClient
-    .from("profissionais")
-    .select("*")
-    .eq("estabelecimento_id", estabelecimentoId);
+const SUPABASE_URL = "https://uqwbduinwugaqexsvkxc.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVxd2JkdWlud3VnYXFleHN2a3hjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU3MTk5MjMsImV4cCI6MjA4MTI5NTkyM30._GzXlkNAvqbevYjmi-crhvSKGQQfX3yjzTWT5PTvIxE";
 
-  const div = document.getElementById("lista-profissionais");
-  div.innerHTML = "";
 
-  data.forEach(p => {
-    div.innerHTML += `
-      <div class="card">
-        <strong>${p.nome}</strong><br/>
-        ${p.especialidade || ""}
-      </div>
-    `;
-  });
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+
+async function carregarDashboard() {
+const { data: { user } } = await supabase.auth.getUser();
+if (!user) return window.location.href = "login.html";
+
+
+document.getElementById("welcome").textContent = `Olá, ${user.email}`;
+
+
+const { data: assinatura } = await supabase
+.from("assinaturas")
+.select("plano")
+.eq("user_id", user.id)
+.eq("status", "ativa")
+.single();
+
+
+const plano = assinatura?.plano || "free";
+document.getElementById("plano-info").textContent = `Plano atual: ${plano.toUpperCase()}`;
+
+
+if (plano === "pro") {
+document.getElementById("recursos-pro").classList.remove("hidden");
 }
+
+
+if (plano === "premium") {
+document.getElementById("recursos-pro").classList.remove("hidden");
+document.getElementById("recursos-premium").classList.remove("hidden");
+}
+}
+
+
+async function logout() {
+await supabase.auth.signOut();
+window.location.href = "login.html";
+}
+
+
+carregarDashboard();
 </script>
+
+
+</body>
+</html>
