@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Checkout | TimelyPro</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+<a href="index.html"><img src="images/timelypro-logo.png" class="logo"></a>
+</header>
+
+
+<main class="checkout">
+<h1>Finalizar Assinatura</h1>
+<p id="plano"></p>
+<button class="btn-primary" id="pagar">Pagar com Mercado Pago</button>
+</main>
+
+
+<footer>© 2025 TimelyPro</footer>
+
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const plano = params.get('plano');
+document.getElementById('plano').textContent = `Plano selecionado: ${plano}`;
+
+
+const PRECOS = { pro: 39, premium: 79 };
+
+
+document.getElementById('pagar').onclick = async () => {
+const res = await fetch('/api/create-checkout', {
+method: 'POST',
+headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify({ plano, valor: PRECOS[plano] })
+});
+const data = await res.json();
+window.location.href = data.init_point;
+};
+</script>
+</body>
+</html>
