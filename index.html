@@ -1,61 +1,48 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <title>TimelyPro | Agendamentos Inteligentes</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>TimelyPro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+  <header>
+    <img src="images/timelypro-logo.png" alt="TimelyPro" class="logo">
+    <nav>
+      <a href="login.html">Login</a>
+      <a href="planos.html">Planos</a>
+      <a href="institucional.html">Sobre</a>
+    </nav>
+  </header>
 
-<header class="site-header">
-  <img src="images/timelypro-logo.png" class="logo" />
+  <main>
+    <section class="carrossel">
+      <div class="slide active"><img src="images/slide1.jpg" alt="Slide 1"></div>
+      <div class="slide"><img src="images/slide2.jpg" alt="Slide 2"></div>
+      <div class="slide"><img src="images/slide3.jpg" alt="Slide 3"></div>
+    </section>
 
-  <nav>
-    <a href="institucional.html">O que é</a>
-    <a href="planos.html">Planos</a>
-    <a href="login.html">Entrar</a>
-  </nav>
-</header>
+    <section class="sobre">
+      <h2>O que é o TimelyPro?</h2>
+      <p>O TimelyPro conecta clientes a profissionais de beleza, saúde e bem-estar, facilitando agendamentos e pagamentos online.</p>
+      <a href="institucional.html" class="btn-primary">Saiba Mais</a>
+    </section>
+  </main>
 
-<!-- 🎞️ CARROSSEL -->
-<section class="hero-carousel">
-  <div class="carousel-slide active">
-    <h1>Organize sua agenda profissional</h1>
-    <p>Atenda mais clientes sem confusão</p>
-  </div>
+  <footer>
+    © 2025 TimelyPro
+  </footer>
 
-  <div class="carousel-slide">
-    <h1>Controle seus ganhos</h1>
-    <p>Veja relatórios e faturamento</p>
-  </div>
-
-  <div class="carousel-slide">
-    <h1>Venda mais com automação</h1>
-    <p>Lembretes automáticos no WhatsApp</p>
-  </div>
-</section>
-
-<section class="cta">
-  <a href="login.html" class="btn-primary">Começar grátis</a>
-</section>
-
-<footer class="site-footer">
-  © 2025 TimelyPro
-</footer>
-
-<script>
-  let index = 0;
-  const slides = document.querySelectorAll(".carousel-slide");
-
-  setInterval(() => {
-    slides[index].classList.remove("active");
-    index = (index + 1) % slides.length;
-    slides[index].classList.add("active");
-  }, 4000);
-</script>
-
+  <script>
+    // Carrossel automático
+    let slides = document.querySelectorAll(".slide");
+    let current = 0;
+    setInterval(() => {
+      slides[current].classList.remove("active");
+      current = (current + 1) % slides.length;
+      slides[current].classList.add("active");
+    }, 4000);
+  </script>
 </body>
 </html>
