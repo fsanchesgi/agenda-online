@@ -5,42 +5,26 @@
   <title>Login | TimelyPro</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body class="login-page">
+<body>
 
-<header>
-  <a href="index.html"><img src="images/timelypro-logo.png" class="logo"></a>
-</header>
+<div class="page">
+  <h1>Login</h1>
 
-<main class="login-wrapper">
-  <section class="login-card">
-    <h1>Entrar</h1>
-    <form id="login-form">
-      <input type="email" id="email" placeholder="Seu e-mail" required>
-      <input type="password" id="password" placeholder="Sua senha" required>
-      <button type="submit" class="btn-primary">Entrar</button>
-    </form>
-    <p id="login-error" class="error-message"></p>
-    <a href="index.html" class="back-link">← Voltar para o site</a>
-  </section>
-</main>
+  <input id="email" placeholder="E-mail"><br><br>
+  <input id="password" type="password" placeholder="Senha"><br><br>
 
-<footer>© 2025 TimelyPro</footer>
+  <button class="btn-primary" onclick="login()">Entrar</button>
+  <br><br>
+  <a href="index.html">← Voltar</a>
+</div>
 
 <script>
-const SUPABASE_URL = "https://uqwbduinwugaqexsvkxc.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVxd2JkdWlud3VnYXFleHN2a3hjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU3MTk5MjMsImV4cCI6MjA4MTI5NTkyM30._GzXlkNAvqbevYjmi-crhvSKGQQfX3yjzTWT5PTvIxE";
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-document.getElementById("login-form").addEventListener("submit", async e => {
-  e.preventDefault();
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
-  if (error) document.getElementById("login-error").textContent = error.message;
-  else window.location.href = "dashboard.html";
-});
+function login() {
+  // Simulação (Supabase entra depois)
+  window.location.href = "dashboard.html";
+}
 </script>
+
 </body>
 </html>
