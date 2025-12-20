@@ -20,10 +20,8 @@ body {
   background-color: #000;
 }
 
-.navbar .logo {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #39FF14;
+.logo-img {
+  height: 50px;
 }
 
 .nav-links {
@@ -92,7 +90,7 @@ body {
   margin-bottom: 30px;
 }
 
-/* Carrossel Funcionalidades */
+/* Carrossel Funcionalidades (menor e animado) */
 .features {
   padding: 80px 50px;
   text-align: center;
@@ -107,7 +105,7 @@ body {
 .carousel {
   position: relative;
   overflow: hidden;
-  max-width: 900px;
+  max-width: 800px;
   margin: 0 auto;
 }
 
@@ -117,30 +115,52 @@ body {
 }
 
 .carousel-item {
-  min-width: 100%;
+  min-width: 300px;
+  background-color: #1e1e1e;
+  margin: 0 10px;
+  border-radius: 15px;
+  text-align: center;
+  padding: 20px;
   flex-shrink: 0;
+  transform: scale(0.9);
+  transition: transform 0.5s;
+}
+
+.carousel-item.active {
+  transform: scale(1);
 }
 
 .carousel-item img {
-  width: 100%;
-  border-radius: 15px;
+  width: 100px;
+  margin-bottom: 15px;
 }
 
+.carousel-item h3 {
+  color: #39FF14;
+  margin-bottom: 10px;
+}
+
+.carousel-item p {
+  color: #cfcfcf;
+  font-size: 0.95rem;
+}
+
+/* Botões do carrossel */
 .carousel-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   background-color: rgba(57,255,20,0.7);
   border: none;
-  font-size: 2rem;
-  padding: 10px 15px;
+  font-size: 1.8rem;
+  padding: 8px 12px;
   cursor: pointer;
   color: #000;
   border-radius: 50%;
 }
 
-.carousel-btn.prev { left: 10px; }
-.carousel-btn.next { right: 10px; }
+.carousel-btn.prev { left: 5px; }
+.carousel-btn.next { right: 5px; }
 
 /* Planos */
 .planos {
@@ -231,5 +251,8 @@ footer {
 @media (max-width: 900px) {
   .hero {
     height: 70vh;
+  }
+  .carousel-track {
+    justify-content: center;
   }
 }
