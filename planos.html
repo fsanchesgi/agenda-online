@@ -2,41 +2,82 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Planos | TimelyPro</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Planos - TimelyPro</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="images/timelypro-favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+  <!-- Header -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <img src="images/timelypro-logo.png" alt="TimelyPro Logo" class="logo-img">
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Início</a></li>
+        <li><a href="planos.html">Planos</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+      <a href="#contato" class="btn cta-btn">Agende Agora</a>
+    </nav>
+  </header>
 
-<header>
-  <img src="images/timelypro-logo.png" class="logo">
-</header>
+  <!-- Planos -->
+  <section id="planos" class="planos">
+    <h2>Escolha seu plano</h2>
+    <div class="plan-cards">
+      <!-- Free -->
+      <div class="plan-card">
+        <h3>Free</h3>
+        <p>Funcionalidades básicas para começar</p>
+        <span class="price">R$0/mês</span>
+        <ul>
+          <li>Agendamentos ilimitados</li>
+          <li>1 calendário conectado</li>
+          <li>Notificações por e-mail</li>
+          <li>Marca TimelyPro no rodapé</li>
+        </ul>
+        <button class="btn cta-btn">Começar</button>
+      </div>
 
-<div class="page">
-  <h1>Escolha seu plano</h1>
+      <!-- Pro -->
+      <div class="plan-card featured">
+        <h3>Pro</h3>
+        <p>Funcionalidades avançadas para profissionais</p>
+        <span class="price">R$29,90/mês</span>
+        <ul>
+          <li>Tudo do Free</li>
+          <li>Notificações por SMS</li>
+          <li>Integração com Google/Outlook</li>
+          <li>Lembretes automáticos</li>
+          <li>Pagamento online</li>
+        </ul>
+        <button class="btn cta-btn">Assinar</button>
+      </div>
 
-  <div class="planos">
-    <div class="plano">
-      <h2>Free</h2>
-      <p class="price">R$ 0</p>
-      <p>Agenda básica</p>
+      <!-- Premium -->
+      <div class="plan-card featured">
+        <h3>Premium</h3>
+        <p>Para empresas e múltiplos usuários</p>
+        <span class="price">R$69,90/mês</span>
+        <ul>
+          <li>Tudo do Pro</li>
+          <li>Múltiplos usuários/colaboradores</li>
+          <li>Relatórios avançados</li>
+          <li>Integrações e API avançadas</li>
+          <li>Suporte prioritário</li>
+        </ul>
+        <button class="btn cta-btn">Assinar</button>
+      </div>
     </div>
+  </section>
 
-    <div class="plano">
-      <h2>Pro</h2>
-      <p class="price">R$ 39</p>
-      <button class="btn-primary">Assinar</button>
-    </div>
-
-    <div class="plano">
-      <h2>Premium</h2>
-      <p class="price">R$ 79</p>
-      <button class="btn-primary">Assinar</button>
-    </div>
-  </div>
-</div>
-
-<footer>© 2025 TimelyPro</footer>
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 TimelyPro. Todos os direitos reservados.</p>
+  </footer>
 
 </body>
 </html>
