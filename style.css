@@ -242,3 +242,61 @@ footer {
   .carousel-item { flex: 0 0 250px; }
   .plan-card { width: 100%; }
 }
+
+.agenda {
+  padding: 80px 50px;
+  text-align: center;
+}
+
+.agenda h2 {
+  color: #39FF14;
+  margin-bottom: 40px;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  min-width: 200px;
+}
+
+.filter-group label {
+  margin-bottom: 5px;
+  color: #39FF14;
+  font-weight: 500;
+}
+
+.filter-group select {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  outline: none;
+}
+
+.results h3 {
+  color: #39FF14;
+  margin-bottom: 20px;
+}
+
+#professional-info {
+  background-color: #1e1e1e;
+  padding: 20px;
+  border-radius: 12px;
+  width: 80%;
+  margin: 0 auto;
+  min-height: 100px;
+}
+
+@media (max-width: 900px) {
+  .filters { flex-direction: column; align-items: center; }
+  .filter-group { width: 90%; }
+}
