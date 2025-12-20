@@ -3,60 +3,64 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TimelyPro | Agendamentos Profissionais</title>
-
-  <link rel="icon" href="images/timelypro-favicon.png">
+  <title>Agenda Online</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="favicon.png">
 </head>
-
 <body>
+  <!-- Header -->
+  <header>
+    <nav>
+      <ul>
+        <li><a href="#home">Início</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+  </header>
 
-<!-- HEADER ÚNICO -->
-<header class="navbar">
-  <div class="nav-left">
-    <img src="images/timelypro-logo.png" alt="TimelyPro" class="logo">
-  </div>
-  <nav class="nav-right">
-    <a href="index.html">Início</a>
-    <a href="agendar.html">Agendar</a>
-    <a href="planos.html">Planos</a>
-    <a href="login.html">Login</a>
-    <a href="agendar.html" class="btn-nav">Agendar</a>
-  </nav>
-</header>
+  <!-- Hero -->
+  <section id="home" class="hero">
+    <h1>Bem-vindo à Agenda Online</h1>
+    <p>Organize seus compromissos de forma prática e rápida.</p>
+    <img src="img1.png" alt="Agenda Online">
+  </section>
 
-<!-- HERO PRINCIPAL -->
-<section class="hero" style="background-image:url('images/hero-background.png')">
-  <div class="hero-content">
-    <h1>Agendamento online profissional</h1>
-    <p>Automatize horários, profissionais e serviços do seu negócio.</p>
-    <a href="agendar.html" class="btn-primary">Começar agora</a>
-  </div>
-</section>
+  <!-- Funcionalidades -->
+  <section id="features" class="features">
+    <div class="card">
+      <img src="img2.png" alt="Funcionalidade 1">
+      <h3>Gestão de Compromissos</h3>
+      <p>Adicione, edite e remova compromissos facilmente.</p>
+    </div>
+    <div class="card">
+      <img src="img3.png" alt="Funcionalidade 2">
+      <h3>Alertas Automáticos</h3>
+      <p>Receba notificações para não esquecer nenhum compromisso.</p>
+    </div>
+    <div class="card">
+      <img src="img4.png" alt="Funcionalidade 3">
+      <h3>Visualização Simples</h3>
+      <p>Veja todos os seus compromissos de forma clara e organizada.</p>
+    </div>
+  </section>
 
-<!-- CARROSSEL ÚNICO -->
-<section class="carousel">
-  <div class="carousel-track">
-    <img src="images/carousel1.png" alt="Serviço 1">
-    <img src="images/carousel2.png" alt="Serviço 2">
-    <img src="images/carousel3.png" alt="Serviço 3">
-  </div>
-</section>
+  <!-- Contato -->
+  <section id="contato">
+    <h2>Entre em Contato</h2>
+    <form id="contact-form">
+      <input type="text" placeholder="Seu nome" required>
+      <input type="email" placeholder="Seu email" required>
+      <textarea placeholder="Mensagem" required></textarea>
+      <button type="submit">Enviar</button>
+    </form>
+  </section>
 
-<!-- SOBRE -->
-<section class="sobre">
-  <h2>O que é TimelyPro?</h2>
-  <p>
-    TimelyPro é a plataforma de agendamento profissional que conecta clientes e
-    profissionais, tornando todo o processo rápido, confiável e eficiente.
-  </p>
-</section>
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Agenda Online. Todos os direitos reservados.</p>
+  </footer>
 
-<!-- FOOTER ÚNICO -->
-<footer>
-  <p>© 2025 TimelyPro — Todos os direitos reservados</p>
-</footer>
-
-<script src="app.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
