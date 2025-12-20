@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     form.reset();
   });
 
-  // Carrossel funcionalidades
+  // Carrossel funcionalidades animado
   const track = document.querySelector('.carousel-track');
   const items = Array.from(track.children);
   const prevButton = document.querySelector('.carousel-btn.prev');
@@ -15,7 +15,10 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentIndex = 0;
 
   function updateCarousel() {
-    track.style.transform = `translateX(-${currentIndex * 100}%)`;
+    track.style.transform = `translateX(-${currentIndex * 320}px)`;
+    items.forEach((item, index) => {
+      item.classList.toggle('active', index === currentIndex);
+    });
   }
 
   prevButton.addEventListener('click', () => {
@@ -24,12 +27,4 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   nextButton.addEventListener('click', () => {
-    currentIndex = (currentIndex === items.length - 1) ? 0 : currentIndex + 1;
-    updateCarousel();
-  });
-
-  // Auto slide a cada 5s
-  setInterval(() => {
-    nextButton.click();
-  }, 5000);
-});
+    currentIndex = (currentIndex === items.length - 1
