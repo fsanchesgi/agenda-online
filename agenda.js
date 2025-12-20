@@ -31,7 +31,18 @@ document.addEventListener("DOMContentLoaded", () => {
     "Estética Sol": ["Camila"]
   };
 
-  const serviceSelect = document.getElementById("service");
+  const agendas = {
+    "João": ["10:00", "11:00", "14:00", "15:30"],
+    "Carlos": ["09:00", "12:00", "16:00"],
+    "Mariana": ["10:30", "13:00", "15:00"],
+    "Lucas": ["09:30", "11:30", "14:30"],
+    "Fernanda": ["10:00", "12:30", "16:00"],
+    "Ana": ["09:00", "11:00", "13:30", "15:00"],
+    "Paula": ["10:00", "12:00", "14:00"],
+    "Rafael": ["09:30", "11:00", "13:00", "15:30"],
+    "Camila": ["10:00", "12:00", "14:00"]
+  };
+
   const stateSelect = document.getElementById("state");
   const citySelect = document.getElementById("city");
   const regionSelect = document.getElementById("region");
@@ -52,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
     regionSelect.innerHTML = '<option value="">Selecione a região</option>';
     establishmentSelect.innerHTML = '<option value="">Selecione o estabelecimento</option>';
     professionalSelect.innerHTML = '<option value="">Selecione o profissional</option>';
-    professionalInfo.innerHTML = "<p>Selecione um profissional para ver os detalhes.</p>";
+    professionalInfo.innerHTML = "<p>Selecione um profissional para ver a agenda.</p>";
 
     const selectedState = stateSelect.value;
     if (!selectedState) return;
@@ -68,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
     regionSelect.innerHTML = '<option value="">Selecione a região</option>';
     establishmentSelect.innerHTML = '<option value="">Selecione o estabelecimento</option>';
     professionalSelect.innerHTML = '<option value="">Selecione o profissional</option>';
-    professionalInfo.innerHTML = "<p>Selecione um profissional para ver os detalhes.</p>";
+    professionalInfo.innerHTML = "<p>Selecione um profissional para ver a agenda.</p>";
 
     const selectedCity = citySelect.value;
     if (!selectedCity) return;
@@ -83,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
   regionSelect.addEventListener("change", () => {
     establishmentSelect.innerHTML = '<option value="">Selecione o estabelecimento</option>';
     professionalSelect.innerHTML = '<option value="">Selecione o profissional</option>';
-    professionalInfo.innerHTML = "<p>Selecione um profissional para ver os detalhes.</p>";
+    professionalInfo.innerHTML = "<p>Selecione um profissional para ver a agenda.</p>";
 
     const selectedRegion = regionSelect.value;
     if (!selectedRegion) return;
@@ -97,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   establishmentSelect.addEventListener("change", () => {
     professionalSelect.innerHTML = '<option value="">Selecione o profissional</option>';
-    professionalInfo.innerHTML = "<p>Selecione um profissional para ver os detalhes.</p>";
+    professionalInfo.innerHTML = "<p>Selecione um profissional para ver a agenda.</p>";
 
     const selectedEst = establishmentSelect.value;
     if (!selectedEst) return;
@@ -112,12 +123,29 @@ document.addEventListener("DOMContentLoaded", () => {
   professionalSelect.addEventListener("change", () => {
     const selectedPro = professionalSelect.value;
     if (!selectedPro) {
-      professionalInfo.innerHTML = "<p>Selecione um profissional para ver os detalhes.</p>";
+      professionalInfo.innerHTML = "<p>Selecione um profissional para ver a agenda.</p>";
       return;
     }
+
+    const availableTimes = agendas[selectedPro] || [];
+    if (availableTimes.length === 0) {
+      professionalInfo.innerHTML = "<p>Sem horários disponíveis no momento.</p>";
+      return;
+    }
+
     professionalInfo.innerHTML = `
-      <h4>${selectedPro}</h4>
-      <p>Detalhes do profissional selecionado e disponibilidade serão exibidos aqui.</p>
+      <h4>${selectedPro} - Agenda</h4>
+      <p>Horários disponíveis:</p>
+      <div class="time-slots">
+        ${availableTimes.map(time => `<button class="btn cta-btn time-btn">${time}</button>`).join('')}
+      </div>
     `;
+
+    // Adiciona clique nos horários
+    document.querySelectorAll(".time-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        alert(`Você selecionou o horário ${btn.textContent} com ${selectedPro}.`);
+      });
+    });
   });
 });
