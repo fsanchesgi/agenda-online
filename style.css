@@ -114,15 +114,15 @@ body {
 .carousel-item {
   background-color: #1e1e1e;
   border-radius: 15px;
-  flex: 0 0 300px;
+  flex: 0 0 350px; /* aumentei a largura do card */
   margin: 0 15px;
-  padding: 25px;
+  padding: 30px; /* mais espaço interno */
   text-align: center;
   transition: transform 0.3s;
 }
-
 .carousel-item img {
-  width: 150px;
+  width: 200px; /* aumentei a largura da imagem */
+  height: auto;
   margin-bottom: 20px;
 }
 
