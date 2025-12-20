@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     form.reset();
   });
 
-  // Carrossel
+  // Carrossel funcional - 1 card por vez
   const track = document.querySelector('.carousel-track');
   const items = Array.from(track.children);
   const prevBtn = document.querySelector('.carousel-btn.prev');
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentIndex = 0;
 
   function updateCarousel() {
-    const itemWidth = items[0].offsetWidth + 30; // item + margin
+    const itemWidth = items[0].offsetWidth + 30; // largura do card + margin
     track.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
   }
 
@@ -30,10 +30,14 @@ document.addEventListener("DOMContentLoaded", () => {
     updateCarousel();
   });
 
-  // Auto slide
+  // Auto-slide a cada 5 segundos
   setInterval(() => {
     nextBtn.click();
   }, 5000);
 
-  updateCarousel(); // inicializa
+  // Atualiza no carregamento inicial
+  updateCarousel();
+
+  // Responsividade dinâmica
+  window.addEventListener('resize', updateCarousel);
 });
