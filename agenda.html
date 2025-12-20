@@ -2,141 +2,93 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Agendar Horário | TimelyPro</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Agende seu horário com os profissionais do TimelyPro" />
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agendar - TimelyPro</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="images/timelypro-favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
-<body class="agenda-page">
+<body>
+  <!-- Header -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <img src="images/timelypro-logo.png" alt="TimelyPro Logo" class="logo-img">
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Início</a></li>
+        <li><a href="planos.html">Planos</a></li>
+        <li><a href="agenda.html">Agendar</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+      <a href="#contato" class="btn cta-btn">Agendar Agora</a>
+    </nav>
+  </header>
 
-<header>
-  <a href="index.html">
-    <img src="images/timelypro-logo.png" class="logo" />
-  </a>
-  <h1>Agendamento de Horário</h1>
-</header>
+  <!-- Agenda -->
+  <section class="agenda">
+    <h2>Encontre um serviço</h2>
 
-<main>
-  <section class="agenda-card">
-    <h2>Escolha um profissional</h2>
-    <select id="profissional"></select>
+    <div class="filters">
+      <div class="filter-group">
+        <label for="service">Tipo de serviço</label>
+        <select id="service">
+          <option value="">Selecione o serviço</option>
+          <option value="barbearia">Barbearia</option>
+          <option value="estetica">Estética</option>
+          <option value="manicure">Manicure</option>
+        </select>
+      </div>
 
-    <h2>Seus dados</h2>
-    <input type="text" id="nome" placeholder="Seu nome" required />
-    <input type="text" id="whatsapp" placeholder="WhatsApp" required />
-    <input type="datetime-local" id="datahora" required />
+      <div class="filter-group">
+        <label for="state">Estado</label>
+        <select id="state">
+          <option value="">Selecione o estado</option>
+        </select>
+      </div>
 
-    <button onclick="agendar()" class="btn-primary">Agendar</button>
+      <div class="filter-group">
+        <label for="city">Cidade</label>
+        <select id="city">
+          <option value="">Selecione a cidade</option>
+        </select>
+      </div>
 
-    <p>Ou agende pelo WhatsApp:</p>
-    <a id="whatsapp-link" target="_blank">Agendar pelo WhatsApp</a>
+      <div class="filter-group">
+        <label for="region">Região</label>
+        <select id="region">
+          <option value="">Selecione a região</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="establishment">Estabelecimento</label>
+        <select id="establishment">
+          <option value="">Selecione o estabelecimento</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="professional">Profissional</label>
+        <select id="professional">
+          <option value="">Selecione o profissional</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="results">
+      <h3>Detalhes do profissional</h3>
+      <div id="professional-info">
+        <p>Selecione um profissional para ver os detalhes.</p>
+      </div>
+    </div>
   </section>
-</main>
 
-<footer class="agenda-footer">© 2025 TimelyPro</footer>
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 TimelyPro. Todos os direitos reservados.</p>
+  </footer>
 
-<script>
-const SUPABASE_URL = "https://uqwbduinwugaqexsvkxc.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVxd2JkdWlud3VnYXFleHN2a3hjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU3MTk5MjMsImV4cCI6MjA4MTI5NTkyM30._GzXlkNAvqbevYjmi-crhvSKGQQfX3yjzTWT5PTvIxE";
-
-const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-// Captura o slug do estabelecimento na URL
-const slug = new URLSearchParams(window.location.search).get("slug");
-let estabelecimentoId;
-let estabelecimentoNome;
-
-// Carrega dados do estabelecimento e profissionais
-async function carregarEstabelecimento() {
-  const { data: estab, error: errEstab } = await supabaseClient
-    .from("estabelecimentos")
-    .select("*")
-    .eq("slug", slug)
-    .single();
-
-  if (errEstab || !estab) {
-    alert("Estabelecimento não encontrado!");
-    return;
-  }
-
-  estabelecimentoId = estab.id;
-  estabelecimentoNome = estab.nome;
-
-  // Atualiza link do WhatsApp dinamicamente
-  const whatsappLink = document.getElementById("whatsapp-link");
-  whatsappLink.href = `https://wa.me/55NUMERODACLIENTE?text=Olá! Quero agendar um horário no ${encodeURIComponent(estab.nome)}`;
-  whatsappLink.textContent = "Agendar pelo WhatsApp";
-
-  // Carrega profissionais ativos
-  const { data: profs, error: errProfs } = await supabaseClient
-    .from("profissionais")
-    .select("*")
-    .eq("estabelecimento_id", estabelecimentoId)
-    .eq("ativo", true);
-
-  if (errProfs) {
-    alert("Erro ao carregar profissionais");
-    return;
-  }
-
-  const select = document.getElementById("profissional");
-  select.innerHTML = "";
-
-  profs.forEach(p => {
-    const opt = document.createElement("option");
-    opt.value = p.id;
-    opt.textContent = p.nome + (p.especialidade ? ` - ${p.especialidade}` : "");
-    select.appendChild(opt);
-  });
-}
-
-// Função de agendamento com bloqueio de conflito
-async function agendar() {
-  const profissional_id = document.getElementById("profissional").value;
-  const cliente_nome = document.getElementById("nome").value.trim();
-  const cliente_whatsapp = document.getElementById("whatsapp").value.trim();
-  const data_hora = document.getElementById("datahora").value;
-
-  if (!cliente_nome || !cliente_whatsapp || !data_hora) {
-    alert("Preencha todos os campos.");
-    return;
-  }
-
-  // Verificar conflito
-  const { data: conflitos } = await supabaseClient
-    .from("agendamentos")
-    .select("*")
-    .eq("profissional_id", profissional_id)
-    .eq("data_hora", data_hora);
-
-  if (conflitos.length > 0) {
-    alert("Horário já reservado, escolha outro.");
-    return;
-  }
-
-  // Inserir agendamento
-  const { error } = await supabaseClient.from("agendamentos").insert({
-    profissional_id,
-    cliente_nome,
-    cliente_whatsapp,
-    data_hora
-  });
-
-  if (error) {
-    alert("Erro ao salvar agendamento: " + error.message);
-    return;
-  }
-
-  alert("Agendamento realizado com sucesso!");
-  document.getElementById("nome").value = "";
-  document.getElementById("whatsapp").value = "";
-  document.getElementById("datahora").value = "";
-}
-
-// Executa ao carregar a página
-carregarEstabelecimento();
-</script>
-
+  <script src="agenda.js"></script>
 </body>
 </html>
